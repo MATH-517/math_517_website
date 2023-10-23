@@ -15,7 +15,7 @@ You can find the course syllabus [here](/course-syllabus.qmd) and the course sch
 | Meeting   | Location                       | Time                     |
 |-----------|--------------------------------|--------------------------|
 | Lectures  | GCD 03 86                      | Fri 10:15 - 12:00        |
-| Exercises | GCD 03 86                      | Fri 13:15 - 15:00        |
+| Exercises | CM 1 221                       | Fri 13:15 - 15:00        |
 
 
 
