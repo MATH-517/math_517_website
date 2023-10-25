@@ -420,7 +420,7 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Deadline
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -428,16 +428,42 @@ Important
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Invite link for GitHub Classroom
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use the corresponding invite link in <a href="https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing">this google doc</a> (accessible with your EPFL account) to accept the assignment. Then go to the <a href="https://github.com/MATH-517">course GitHub organization</a> and locate the repo titled <code>ae-7-YOUR_GITHUB_USERNAME</code> to get started.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Submission requirements
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>You are required to hand in a PDF version of your report <code>report.pdf</code> (generated from the quarto file <code>report.qmd</code>) and the quarto file itself. The <code>report.qmd</code> should contain all the code necessary to reproduce your results: you should not show the actual code in the PDF report, unless you want to point out something specific.</p>
+<p>Your <code>README.md</code> should contain instructions on how to reproduce the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.</p>
+<p><strong>Checklist</strong>:</p>
+<ol type="1">
+<li><input type="checkbox"><code>report.pdf</code> in GitHub repository (generated from <code>report.qmd</code>)</li>
+<li><input type="checkbox"><code>report.qmd</code> in GitHub repository (source code, should be able to run from top to bottom)</li>
+<li><input type="checkbox"><code>README.md</code> with instructions on how to run the code and reproduce the PDF report</li>
+</ol>
+</div>
 </div>
 </div>
 <p>To be posted soon.</p>
