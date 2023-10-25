@@ -7,10 +7,14 @@ editor: visual
 ---
 
 ::: callout-important
+# Deadline
+
 **Due date: 11:59pm on Sunday, 1 October 2023.**
 :::
 
-::: callout-note
+::: {.callout-note collapse="false"}
+# Invite link for GitHub Classroom
+
 Use the corresponding invite link in [this google doc](https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing) (accessible with your EPFL account) to accept the assignment. Then go to the [course GitHub organization](https://github.com/MATH-517) and locate the repo titled `ae-1-YOUR_GITHUB_USERNAME` to get started. 
 :::
 

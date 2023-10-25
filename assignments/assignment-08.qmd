@@ -7,11 +7,30 @@ editor: visual
 ---
 
 ::: callout-important
+# Deadline
+
 **Due date: 11:59pm on Sunday, 10 December 2023.**
 :::
 
-::: callout-note
+::: {.callout-note collapse="true"}
+# Invite link for GitHub Classroom
+
 Use the corresponding invite link in [this google doc](https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing) (accessible with your EPFL account) to accept the assignment. Then go to the [course GitHub organization](https://github.com/MATH-517) and locate the repo titled `ae-6-YOUR_GITHUB_USERNAME` to get started.
 :::
+
+::: {.callout-warning collapse="false"}
+# Submission requirements
+
+You are required to hand in a PDF version of your report `report.pdf` (generated from the quarto file `report.qmd`) and the quarto file itself. The `report.qmd` should contain all the code necessary to reproduce your results: you should not show the actual code in the PDF report, unless you want to point out something specific.
+
+Your `README.md` should contain instructions on how to reproduce the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.
+
+**Checklist**:
+
+1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
+2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
+3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
+:::
+
 
 To be posted soon.
