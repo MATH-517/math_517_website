@@ -10,9 +10,13 @@ date: 10-27-2023
 
 This is one of the original illustrating examples for the use of the EM algorithm.
 
-Suppose that a vector of observed counts $y=(125,18,20,34)$ arises from a multinomial distribution with cell-probabilities $(\frac{1}{2}+\frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The aim is to find the ML estimate of $\theta$. The density of the observed data is $$
+Suppose that a vector of observed counts $y=(125,18,20,34)$ arises from a multinomial distribution with cell-probabilities $(\frac{1}{2}+\frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})$. The aim is to find the ML estimate of $\theta$. 
+
+The density of the observed data is 
+$$
 f_{Y \mid \Theta}(y \mid \theta)=\frac{n !}{y_{1} ! y_{2} ! y_{3} ! y_{4} !}\left(\frac{1}{2}+\frac{\theta}{4}\right)^{y_1}\left(\frac{1}{4}-\frac{\theta}{4}\right)^{y_2}\left(\frac{1}{4}-\frac{\theta}{4}\right)^{y_3}\left(\frac{\theta}{4}\right)^{y_4}
-$$ Although the log-likelihood can be maximized explicitly we use the example to illustrate the EM algorithm.
+$$ 
+Although the log-likelihood can be maximized explicitly, we use the example to illustrate the EM algorithm.
 
 To view the problem as an unobserved data problem, we would think of it as a multinomial experiment with five categories with observations $x=\left(y_{11}, y_{12}, y_2, y_3, y_4, y_5\right)$, each with cell probability $(1 / 2, \theta / 4,(1-\theta) / 4,(1-\theta) / 4, \theta / 4)$. That is, we split the first category into two and we can only observe the sum $y_1=y_{11}+y_{12}$.
 
