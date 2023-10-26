@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.330">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MATH 517 - EM Algorithm</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../resources/computing/intro_to_r/index.html" rel="next">
+<link href="../notes/week_05.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta property="og:title" content="MATH 517 - EM Algorithm">
+<meta property="og:description" content="Homepage for MATH 517- Computational statistics and visualisation at EPFL, Fall 2023.">
+<meta property="og:site_name" content="MATH 517">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/week_02.html">Supplementary notes</a></li><li class="breadcrumb-item"><a href="../notes/week_06.html">EM Algorithm</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">MATH 517</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MATH-517/MATH_517_website" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Course information</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview/Organisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Help &amp; FAQ</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Exercises</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/exercise-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/exercise-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/exercise-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Assignments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 6</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 7</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignments/assignment-08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 8</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Small project</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Main project</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../projects/project-tips-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tips + resources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Supplementary notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/week_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring Data with <code>tidyverse</code></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/week_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kernel Density Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/week_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Non-parametric Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/week_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Validation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/week_06.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">EM Algorithm</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Coding introduction</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/computing/intro_to_r/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/computing/intro_to_python/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/computing/intro_to_julia/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/tutorials/github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/tutorials/github_classroom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub classroom</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/tutorials/installing_software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/computing/computing-cheatsheets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cheatsheets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">All resources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#motivation-and-examples" id="toc-motivation-and-examples" class="nav-link active" data-scroll-target="#motivation-and-examples">Motivation and Examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1-censored-observations" id="toc-example-1-censored-observations" class="nav-link" data-scroll-target="#example-1-censored-observations">Example 1: Censored Observations</a></li>
+  <li><a href="#example-2-mixing-proportions" id="toc-example-2-mixing-proportions" class="nav-link" data-scroll-target="#example-2-mixing-proportions">Example 2: Mixing Proportions</a></li>
+  <li><a href="#example-3-multivariate-gaussian-with-missing-entries" id="toc-example-3-multivariate-gaussian-with-missing-entries" class="nav-link" data-scroll-target="#example-3-multivariate-gaussian-with-missing-entries">Example 3: Multivariate Gaussian with Missing Entries</a>
+  <ul class="collapse">
+  <li><a href="#selecting-no.-of-components-for-pca" id="toc-selecting-no.-of-components-for-pca" class="nav-link" data-scroll-target="#selecting-no.-of-components-for-pca">Selecting No.&nbsp;of Components for PCA</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#convergence-properties" id="toc-convergence-properties" class="nav-link" data-scroll-target="#convergence-properties">Convergence Properties</a>
+  <ul class="collapse">
+  <li><a href="#speed-of-convergence" id="toc-speed-of-convergence" class="nav-link" data-scroll-target="#speed-of-convergence">Speed of Convergence</a></li>
+  </ul></li>
+  <li><a href="#mm-algorithms" id="toc-mm-algorithms" class="nav-link" data-scroll-target="#mm-algorithms">MM algorithms</a>
+  <ul class="collapse">
+  <li><a href="#e-step-minorizes" id="toc-e-step-minorizes" class="nav-link" data-scroll-target="#e-step-minorizes">E-step Minorizes</a></li>
+  <li><a href="#convergence-of-mm-algorithms" id="toc-convergence-of-mm-algorithms" class="nav-link" data-scroll-target="#convergence-of-mm-algorithms">Convergence of MM algorithms</a></li>
+  </ul></li>
+  <li><a href="#some-comments-about-em" id="toc-some-comments-about-em" class="nav-link" data-scroll-target="#some-comments-about-em">Some Comments about EM</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MATH-517/MATH_517_website/edit/main/notes/week_06.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MATH-517/MATH_517_website/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/week_02.html">Supplementary notes</a></li><li class="breadcrumb-item"><a href="../notes/week_06.html">EM Algorithm</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">EM Algorithm</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+<section id="motivation-and-examples" class="level1">
+<h1>Motivation and Examples</h1>
+<p>Maximum likelihood is the dominant form of estimation in statistics. Recall that it is a parameter estimation procedure, so we always have to put a parametric model to our data. The EM algorithm is an iterative algorithm for calculating maximum likelihood estimators (MLEs) in situations where</p>
+<ul>
+<li>there is missing data (e.g., censored observations, Example 1 below) complicating the calculations, or</li>
+<li>it is beneficial to think of our data as if there were some components missing, because it would simplify the calculation (e.g., estimating mixture distributions, Example 2 below).</li>
+</ul>
+<p>Let us denote</p>
+<ul>
+<li><span class="math inline">\(X_{obs}\)</span> are the <strong>observed</strong> random variables</li>
+<li><span class="math inline">\(X_{miss}\)</span> are the <strong>missing</strong> random variables</li>
+<li><span class="math inline">\(\ell_{comp}(\theta)\)</span> is the <strong>complete</strong> log-likelihood of <span class="math inline">\(X = (X_{obs},X_{miss})\)</span>
+<ul>
+<li>maximizing this to obtain MLE is supposed to be <em>simple</em></li>
+<li><span class="math inline">\(\theta\)</span> denotes all the parameters, e.g.&nbsp;contains <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span></li>
+</ul></li>
+</ul>
+<p>Our task is to maximize <span class="math inline">\(\ell_{obs}(\theta)\)</span>, the <strong>observed</strong> log-likelihood of <span class="math inline">\(X_{obs}\)</span>.</p>
+<p><strong>EM Algorithm</strong>: Start from an initial estimate <span class="math inline">\(\theta^{(0)}\)</span> and for <span class="math inline">\(l=1,2,\ldots\)</span> iterate the following two steps until convergence:</p>
+<ul>
+<li><strong>E-step</strong>: calculate <span class="math display">\[\mathbb{E}_{\theta^{(l-1)}}\big[\ell_{comp}(\theta) \big| X_{obs} = \mathbf{x}_{obs}\big] =: Q\big(\theta,\theta^{(l-1)}\big)\]</span></li>
+<li><strong>M-step</strong>: optimize <span class="math display">\[\mathrm{arg\,max}_{\theta}\; Q\big(\theta,\theta^{(l-1)}\big) =: \theta^{(l)}\]</span></li>
+</ul>
+<p>The E-step, i.e.&nbsp;calculating the expected likelihood, sometimes coincides with calculating expected values of the unobserved data (with the current parameters) and plugging them into the complete likelihood, but this is not always the case (see Example 3 below)! Actually, as will become clear, it is the case if and only if the complete log-likelihood is linear (w.r.t. the full data).</p>
+<section id="example-1-censored-observations" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-censored-observations">Example 1: Censored Observations</h2>
+<p>See the slides of Week 7.</p>
+</section>
+<section id="example-2-mixing-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-mixing-proportions">Example 2: Mixing Proportions</h2>
+<p>Let <span class="math inline">\(X_1,\ldots,X_N\)</span> be i.i.d. from <span class="math display">\[f_{\theta}(x) = (1-\tau) \varphi_{\mu_1,\sigma_1}(x) + \tau \varphi_{\mu_2,\sigma_2}(x) = (1-\tau) \frac{1}{\sqrt{2 \pi \sigma_1^2}} \exp\left\lbrace - \frac{1}{2} \left( \frac{x-\mu_1}{\sigma_1} \right)^2 \right\rbrace + \tau \frac{1}{\sqrt{2 \pi \sigma_2^2}} \exp\left\lbrace - \frac{1}{2} \left( \frac{x-\mu_2}{\sigma_2} \right)^2 \right\rbrace\]</span></p>
+<p>The task is to estimate <span class="math inline">\(\theta = (\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\tau)^\top\)</span> via MLE, i.e., solve <span class="math display">\[
+\mathrm{arg\,max}_\theta \underbrace{\sum_{n=1}^N \log f(X_n)}_{\ell_{obs}(\theta)}.
+\]</span></p>
+<p>Straightforward solution via derivatives is not possible because of the superposition structure of <span class="math inline">\(f(x)\)</span>, which breaks the product structure and thus the log-likelihood does not have a nice form. For example <span class="math display">\[
+\frac{\partial}{\partial \tau} \ell_{obs}(\theta) = \sum_{n=1}^N \left[ \frac{-\varphi_{\mu_1,\sigma_1}(x) + \varphi_{\mu_2,\sigma_2}(x)}{(1-\tau) \varphi_{\mu_1,\sigma_1}(x) + \tau \varphi_{\mu_2,\sigma_2}(x)} \right].
+\]</span> Similarly, all the other derivatives depend on the whole <span class="math inline">\(\theta\)</span> in a non-linear fashion, and hence analytic solution is hard to obtain. Of course, we could solve the first-order conditions numerically, which would lead to some difficult cyclic optimization. Instead, the solution via the EM algorithm presented below is quite elegant.</p>
+<p>We already know how to generate <span class="math inline">\(X_1,\ldots,X_N\)</span>:</p>
+<ul>
+<li>first we toss a coin to decide whether to draw from <span class="math inline">\(\varphi_{\mu_1,\sigma_1^2}\)</span> or from <span class="math inline">\(\varphi_{\mu_2,\sigma_2^2}\)</span>, and</li>
+<li>then we draw from the decided Gaussian.</li>
+</ul>
+<p>We can use this knowledge to introduce additional variables (unobserved, related to the coin toss) such that the complete likelihood will retain a product structure and thus will be easier to work with.</p>
+<p>Let <span class="math inline">\(Z = \mathbb{I}_{\left[X_n \text{ drawn from } \varphi_{\mu_2,\sigma_2^2}\right]} \sim \mathrm{Bern}(\tau)\)</span> be i.i.d. and independent of <span class="math inline">\(X\)</span>’s. Then the joint density of <span class="math inline">\((X,Z)^\top\)</span> can be written as <span class="math display">\[
+f_{X,Z}(x,z) = \underbrace{\left[\varphi_{\mu_1,\sigma_1^2}(x)\right]^{1-z} \left[\varphi_{\mu_2,\sigma_2^2}(x)\right]^z}_{f_{X|Z}(x|z)} \underbrace{\tau^z (1-\tau)^{1-z}}_{f_Z(z)}.
+\]</span> Now that we have a nice product structure, things will fall into place. The log-likelihood is <span class="math display">\[
+\ell_{comp}(\theta) = \sum_{n=1}^N \left\{ (1-Z_n)\left[ \log \varphi_{\mu_1,\sigma_1}(X_n) + \log(1-\tau) \right] + Z_n\left[ \log \varphi_{\mu_2,\sigma_2}(X_n) + \log(\tau) \right] \right\}
+\]</span></p>
+<p><strong>E-step</strong>: Notice that utilizing linearity, calculating <span class="math inline">\(\mathbb{E}_{\theta^{(l-1)}}\big[\ell_{comp}(\theta) \big| X_1,\ldots,X_n\big]\)</span> amounts only to evaluating <span class="math inline">\(\mathbb{E}_{\theta^{(l-1)}}\big[Z_n \big| X_1,\ldots,X_n\big]\)</span>. This can be done using the Bayes theorem: <span class="math display">\[
+\mathbb{E}_{\theta^{(l-1)}}\big[Z_n \big| X_1,\ldots,X_n\big] = P(Z_n=1|X_n, \theta^{(l-1)}) = \frac{f_{X\mid Z}(X_n|Z_n=1, \theta^{(l-1)}) P(Z_n=1 \mid \theta^{(l-1)})}{f_{\theta^{(l-1)}}(X_n)} = \frac{\varphi_{\mu_2^{(l-1)},\sigma_2^{(l-1)}}(X_n) \tau^{(l-1)}}{f_{\theta^{(l-1)}}(X_n)} =: \gamma_n^{(l-1)}
+\]</span> and hence the E-step amounts to plugging-in the contemporary estimated proportion <span class="math inline">\(\gamma_n^{(l-1)}\)</span> instead of the unobserved <span class="math inline">\(Z_n\)</span>’s into the complete likelihood. This gives us <span class="math display">\[
+\begin{align*}
+Q\big(\theta,\theta^{(l-1)}\big) &amp;=  \log(1-\tau) \left(N - \sum_{n=1}^{N} \gamma^{(l-1)}_n\right) +
+    \log(\tau) \sum_{n=1}^{N} \gamma^{(l-1)}_n +\\
+    &amp;\qquad + \sum_{n=1}^{N} \big\lbrace(1-\gamma^{(l-1)}_n\big\rbrace \log \varphi_{\mu_1,\sigma_1}(X_n) + \sum_{n=1}^{N} \gamma^{(l-1)}_n \log \varphi_{\mu_2,\sigma_2}(X_n).
+\end{align*}
+\]</span></p>
+<p><strong>M-step</strong>: Now, we can solve the first-order conditions relatively easily, because the first part of <span class="math inline">\(Q\big(\theta,\theta^{(l-1)}\big)\)</span> corresponding to <span class="math inline">\(\tau\)</span> resembles binomial log-likelihood, while the last two summands resemble Gaussian log-likelihoods, only weighted. Taking derivatives by individual variables and setting them to zero gives us <span class="math display">\[
+\begin{split}
+\tau^{(l)} &amp;= N^{-1} \gamma, \quad \text{where} \quad \gamma = \sum_{n=1}^N \gamma^{(l-1)}_n \\
+\mu_2^{(l)} &amp;= \gamma^{-1} \sum_{n=1}^N \gamma^{(l-1)}_n X_n \\
+(\sigma_2^2)^{(l)} &amp;= \gamma^{-1} \sum_{n=1}^N \gamma^{(l-1)}_n \big(X_n - \mu_2^{(l)} \big)^2 \\
+\mu_1^{(l)} &amp;= (N-\gamma)^{-1} \sum_{n=1}^N \big(1-\gamma^{(l-1)}_n\big) X_n \\
+(\sigma_1^2)^{(l)} &amp;= (N-\gamma)^{-1} \sum_{n=1}^N \big(1-\gamma^{(l-1)}_n\big) \big(X_n - \mu_1^{(l)} \big)^2 \\
+\end{split}
+\]</span></p>
+</section>
+<section id="example-3-multivariate-gaussian-with-missing-entries" class="level2">
+<h2 class="anchored" data-anchor-id="example-3-multivariate-gaussian-with-missing-entries">Example 3: Multivariate Gaussian with Missing Entries</h2>
+<p>Assume <span class="math inline">\(\mathbf{x}^{(1)},\ldots,\mathbf{x}^{(N)}\)</span> is a random sample from a <span class="math inline">\(p\)</span>-variate Gaussian distribution with mean <span class="math inline">\(\mu\)</span> and covariance <span class="math inline">\(\Sigma\)</span>, but not all entries of <span class="math inline">\(\mathbf{x}^{(1)},\ldots,\mathbf{x}^{(N)}\)</span> are observed. The goal is to estimate <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span> from the incomplete measurements. We will denote <span class="math inline">\(\mathbf{x}^{(n)}_{obs}\)</span> the observed part of <span class="math inline">\(\mathbf{x}^{(n)}\)</span> and we will denote <span class="math inline">\(\mu^{(n)}_{obs}\)</span> and <span class="math inline">\(\Sigma^{(n)}_{obs}\)</span> the mean and the covariance of <span class="math inline">\(\mathbf{x}^{(n)}_{obs}\)</span>, i.e.&nbsp;<span class="math inline">\(\mu^{(n)}_{obs}\)</span> is just a sub-vector of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma^{(n)}_{obs}\)</span> is a sub-matrix of <span class="math inline">\(\Sigma\)</span>.</p>
+<p>This is one of the instances where a programming syntax can be simpler than math. In <code>R</code>, having our data as a matrix <code>X</code> with <code>NA</code> for the missing entries, we could do for every <span class="math inline">\(n=1,\ldots,N\)</span></p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#     X - a data matrix of size N x p</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    mu - a mean vector of size p</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sigma - a covariance matrix of size p x p</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ind_n <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">is.na</span>(X[n,])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x_n_obs <span class="ot">&lt;-</span> X[n,ind_n]             <span class="co"># observed part of the n-th sample</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mu_n_obs <span class="ot">&lt;-</span> mu[ind_n]             <span class="co"># mean of x_n_obs</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Sigma_n_obs <span class="ot">&lt;-</span> Sigma[ind_n,ind_n] <span class="co"># covariance of x_n_obs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Sample <code>levelplots</code>’s of <code>mu_n_obs</code> and <code>Sigma_n_obs</code> are shown below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="week_06_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" style="width:50.0%"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="week_06_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>Recall the density <span class="math inline">\(f(\mathbf{x})\)</span> of a p-variate Gaussian (e.g.&nbsp;<a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">here</a> on wiki). Hence we have <span class="math display">\[
+\ln f(\mathbf{x}^{(n)}) = \mathrm{const\,} - \frac{1}{2} \mathrm{\ln\,det}(\Sigma) -
+\frac{1}{2} \big( \mathbf{x}^{(n)} - \mu \big)^\top \Sigma^{-1} \big( \mathbf{x}^{(n)} - \mu \big),
+\]</span> and since <span class="math inline">\(\mathbf{x}^{(n)}_{obs}\)</span> is just a sub-vector of <span class="math inline">\(\mathbf{x}^{(n)}\)</span>, we have <span class="math display">\[
+\ln f(\mathbf{x}^{(n)}_{obs}) = \mathrm{const\,} - \frac{1}{2} \mathrm{\ln\,det}(\Sigma_{obs}^{(n)}) -
+\frac{1}{2} \big( \mathbf{x}^{(n)}_{obs} - \mu_{obs}^{(n)} \big)^\top \Sigma^{-1}_{obs} \big( \mathbf{x}^{(n)}_{obs} - \mu_{obs}^{(n)} \big).
+\]</span></p>
+<p>It follows that the complete and observed likelihood are <span class="math display">\[
+\begin{split}
+\ell_{comp}(\mu,\Sigma) &amp;= \mathrm{const\,} - \frac{N}{2} \mathrm{\ln\,det}(\Sigma) -
+\sum_{n=1}^N \frac{1}{2} \underbrace{\big( \mathbf{x}^{(n)} - \mu \big)^\top \Sigma^{-1} \big( \mathbf{x}^{(n)} - \mu \big)}_{\mathrm{tr}\Big\lbrace \big( \mathbf{x}^{(n)} - \mu \big) \big( \mathbf{x}^{(n)} - \mu \big)^\top \Sigma^{-1} \Big\rbrace}, \\
+\ell_{obs}(\mu,\Sigma) &amp;= \mathrm{const\,} - \frac{1}{2} \sum_{n=1}^N \mathrm{\ln\,det}(\Sigma_{obs}^{(n)}) -
+\sum_{n=1}^N \frac{1}{2} \big( \mathbf{x}_{obs}^{(n)} - \mu_{obs}^{(n)} \big)^\top \big(\Sigma_{obs}^{(n)}\big)^{-1} \big( \mathbf{x}_{obs}^{(n)} - \mu_{obs}^{(n)} \big).
+\end{split}
+\]</span> While optimizing <span class="math inline">\(\ell_{comp}\)</span> is easy (not that it is <em>easy</em>, but it is just a multivariate Gaussian MLE), optimizing <span class="math inline">\(\ell_{obs}\)</span> is hard and we will do it via the EM algorithm.</p>
+<p>The <span class="math inline">\(l\)</span>-th iteration of the E-step requires constructing <span class="math display">\[
+Q(\theta|\theta^{(l-1)}) = \mathbb{E}_{\theta^{(l-1)}}\big[ \ell_{comp}(\theta) \big| \mathbf{x}_{obs}^{(n)}, n=1,\ldots,N \big] = \mathbb{E}_{\theta^{(l-1)}}\big[ \ell_{comp}(\theta) \big| data],
+\]</span> where we denote <span class="math inline">\(\theta=(\mu,\Sigma)^\top\)</span>. Given the linearity of <span class="math inline">\(\ell_{comp}\)</span>, we can take the conditional expectation inside: <span class="math display">\[
+Q(\theta|\theta^{(l-1)}) = \mathrm{const\,} - \frac{N}{2} \mathrm{\ln\,det}(\Sigma) -
+\sum_{n=1}^N \frac{1}{2}\mathrm{tr}\Big[ \mathbb{E}_{\theta^{(l-1)}} \Big\lbrace \big( \mathbf{x}^{(n)} - \mu \big) \big( \mathbf{x}^{(n)} - \mu \big)^\top \Big| data \Big\rbrace \Sigma^{-1} \Big]
+\]</span></p>
+<p>We will calculate the conditional expectation above (which is a matrix) entry by entry and distinguish 3 cases depending on whether both, one, or none of the factors in the product are observed: <span class="math display">\[
+\mathbb{E}_{\theta^{(l-1)}} \Big\lbrace \big( x_{n,i} - \mu_i \big) \big( x_{n,j} - \mu_j \big) \Big| data \Big\rbrace = \begin{cases}
+\big( x_{n,i} - \mu_i \big) \big( x_{n,j} - \mu_j \big),\qquad\qquad\qquad \text{when both } x_{n,i} \text{ and } x_{n,j} \text{ are observed}, \\
+\big( x_{n,i} - \mu_i \big)\big\lbrace\mathbb{E}_{\theta^{(l-1)}}(x_{n,j}|data)-\mu_j\big\rbrace,\quad \text{when } x_{n,i} \text{ is observed (similarly if } x_{n,j} \text{ is observed)}, \\
+\mathbb{E}_{\theta^{(l-1)}}\lbrace(x_{n,i}-\mu_i)(x_{n,j}-\mu_j)|data\rbrace,\quad \text{when neither } x_{n,i} \text{ nor } x_{n,j} \text{ are observed}.
+\end{cases}
+\]</span> Notice that <span class="math inline">\(\mathbb{E}_{\theta^{(l-1)}}(x_{n,j}|data)\)</span> is just the linear predictor introduced last week, denoted by <span class="math inline">\(\widehat{x}_{n,j}\)</span> last week, but now let us denote them by <span class="math inline">\(\widehat{x}_{n,j}^{(l-1)}\)</span> to emphasize the fact that they are the conditional expectations from the previous iteration.</p>
+<p>The calculation of <span class="math inline">\(\mathbb{E}_{\theta^{(l-1)}}\lbrace(x_{n,i}-\mu_i)(x_{n,j}-\mu_j)|data\rbrace\)</span> is a bit painful, but adding and subtracting <span class="math inline">\(\widehat{x}_{n,i}^{(l-1)}\)</span>, resp. <span class="math inline">\(\widehat{x}_{n,j}^{(l-1)}\)</span> in the inner-most parentheses gives <span class="math display">\[
+\begin{split}
+\mathbb{E}_{\theta^{(l-1)}}\lbrace(x_{n,i}-\mu_i)(x_{n,j}-\mu_j)|data\rbrace &amp;=
+(\widehat{x}_{n,i}^{(l-1)}-\mu_i)(\widehat{x}_{n,j}^{(l-1)}-\mu_j) + \mathbb{E}_{\theta^{(l-1)}}\lbrace(x_{n,i}-\widehat{x}_{n,i}^{(l-1)})(x_{n,j}-\widehat{x}_{n,j}^{(l-1)})|data\rbrace \\
+&amp;\quad+
+(\widehat{x}_{n,i}^{(l-1)}-\mu_i) \mathbb{E}_{\theta^{(l-1)}}(x_{n,j}-\widehat{x}_{n,j}^{(l-1)}|data)+
+(\widehat{x}_{n,i}^{(l-1)}-\mu_j) \mathbb{E}_{\theta^{(l-1)}}(x_{n,i}-\widehat{x}_{n,i}^{(l-1)}|data) \\
+&amp;= (\widehat{x}_{n,i}^{(l-1)}-\mu_i)(\widehat{x}_{n,j}^{(l-1)}-\mu_j) + \mathrm{cov}_{\theta^{(l-1)}}(x_{n,i},x_{n,j}|data) + 0 + 0\\
+&amp;=: (\widehat{x}_{n,i}^{(l-1)}-\mu_i)(\widehat{x}_{n,j}^{(l-1)}-\mu_j) + c_{n,i,j}.
+\end{split}
+\]</span></p>
+<p>Altogether, we can write <span class="math display">\[
+\mathbb{E}_{\theta^{(l-1)}} \Big\lbrace \big( \mathbf{x}^{(n)} - \mu \big) \big( \mathbf{x}^{(n)} - \mu \big)^\top \Big| data \Big\rbrace = (\widehat{\mathbf x}^{(n)(l-1)}-\mu)(\widehat{\mathbf x}^{(n)(l-1)}-\mu)^\top + \mathbf{C}^{(n)},
+\]</span> where <span class="math inline">\(\mathbf{C}^{(n)} = (c_{n,i,j})_{i,j=1}^{p}\)</span>. Hence we have completed the E-step: <span class="math display">\[
+Q(\theta|\theta^{(l-1)}) = \mathrm{const\,} - \frac{N}{2} \mathrm{\ln\,det}(\Sigma) -
+\sum_{n=1}^N \frac{1}{2}\mathrm{tr}\Big[ \Big\lbrace (\widehat{\mathbf x}^{(n)(l-1)}-\boldsymbol{\mu})(\widehat{\mathbf x}^{(n)(l-1)}-\boldsymbol{\mu})^\top + \mathbf{C}^{(n)}\Big\rbrace \boldsymbol{\Sigma}^{-1} \Big].
+\]</span></p>
+<p>The <span class="math inline">\(M\)</span>-step is now straightforward. Updating <span class="math inline">\(\mu\)</span> is exactly the same as if a Gaussian MLE was calculated, i.e., <span class="math inline">\(\mu^{(l)} = N^{-1} \sum_{n} \widehat{\mathbf x}^{(n)(l-1)}\)</span>, that is just the sample mean of the completed matrix. For <span class="math inline">\(\Sigma^{(l)}\)</span>, rearrange <span class="math display">\[
+Q(\theta|\theta^{(l-1)}) = \mathrm{const\,} - \frac{N}{2} \mathrm{\ln\,det}(\Sigma) -
+\sum_{n=1}^N \frac{1}{2}\mathrm{tr}\Big[ \big\lbrace (\widehat{\mathbf x}^{(n)(l-1)}-\mu)(\widehat{\mathbf x}^{(n)(l-1)}-\mu)^\top + \mathbf{C}^{(n)} \big\rbrace \Sigma^{-1} \Big].
+\]</span> This can be solved like Gaussian MLE for <span class="math inline">\(\Sigma\)</span>, i.e., we take a derivative w.r.t. <span class="math inline">\(\Sigma\)</span>, set it to zero, plug in the current estimate for <span class="math inline">\(\mu\)</span>, and solve to obtain <span class="math display">\[
+\Sigma^{(l)} = \frac{1}{N} \sum_{n=1}^N \big\lbrace (\widehat{\mathbf x}^{(n)(l-1)}-\hat{\mu}^{(l)})(\widehat{\mathbf x}^{(n)(l-1)}-\hat{\mu}^{(l)})^\top + \mathbf{C}^{(n)} \big\rbrace.
+\]</span></p>
+<p><em>Note</em>: The calculation above is a perfect example of a shortcut in calculations. Instead of solving the M-step, we recognize the connection to Gaussian MLE and utilize it.</p>
+<section id="selecting-no.-of-components-for-pca" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-no.-of-components-for-pca">Selecting No.&nbsp;of Components for PCA</h3>
+<p>Example 3 shows how to perform <strong>Step I</strong> needed to cross-validate for the number of components <span class="math inline">\(r\)</span>. Actually, the predictors <span class="math inline">\(\widehat{x}_{n,j}\)</span> are naturally taken as the limit of <span class="math inline">\(\widehat{x}_{n,j}^{(l)}\)</span> for <span class="math inline">\(l \to \infty\)</span>.</p>
+<p>One should remember that this approach to selecting the rank <span class="math inline">\(r\)</span> for PCA requires distributional assumption (Gaussianity) on the observations.</p>
+<p>Notice that, even though it might feel quite natural, calculating the expected complete log-likelihood does <strong>NOT</strong> correspond just to simple imputation of the respective conditional means into the likelihood. What might feel quite natural would not have the desired monotone convergence property below.</p>
+</section>
+</section>
+</section>
+<section id="convergence-properties" class="level1">
+<h1>Convergence Properties</h1>
+<p>Firstly, we show that EM algorithm has the so-called monotone convergence property.</p>
+<p><strong>Proposition 1</strong>: <span class="math inline">\(\ell_{obs}(\theta^{(l)}) \geq \ell_{obs}(\theta^{(l-1)})\)</span></p>
+<strong>Proof</strong>: The joint density for the complete data <span class="math inline">\(X\)</span> satisfies <span class="math inline">\(f_\theta(X) = f_\theta(X_{miss}|X_{obs}) f_\theta(X_{obs})\)</span> and hence <span class="math display">\[\ell_{comp}(\theta) = \log f_\theta(X_{miss}|X_{obs}) + \ell_{obs}(\theta).\]</span> Notice that <span class="math inline">\(\ell_{obs}(\theta) = \ell_{comp}(\theta) - \log f_\theta(X_{miss}|X_{obs})\)</span> does not depend on <span class="math inline">\(X_{miss}\)</span> (<span class="math inline">\(\ell_{obs}(\theta)\)</span> clearly does not) and hence we can condition on <span class="math inline">\(X_{obs}\)</span> under any value of the parameter <span class="math inline">\(\theta\)</span> without really doing anything: <span class="math display">\[\ell_{obs}(\theta) = \underbrace{\mathbb{E}_{\theta^{(l-1)}} \big\lbrace \ell_{comp}(\theta) \big| X_{obs} \big\rbrace}_{= Q\big(\theta,\theta^{(l-1)}\big)} - \underbrace{\mathbb{E}_{\theta^{(l-1)}} \big\lbrace \log f_\theta(X_{miss}|X_{obs}) \big| X_{obs} \big\rbrace}_{ =: H\big(\theta,\theta^{(l-1)}\big)}\]</span> And so when we take <span class="math inline">\(\widehat{\theta}^{(l)} = \mathrm{arg\,max}_{\theta}\; Q\big(\theta,\widehat{\theta}^{(l-1)}\big)\)</span>, we only have to show we have not increased <span class="math inline">\(- H\big(\cdot, \theta^{(l-1)}\big)\)</span>. Dividing and multiplying by <span class="math inline">\(f_{\theta^{(l-1)}}(X_{miss}|X_{obs})\)</span> and using the <a href="https://en.wikipedia.org/wiki/Jensen%27s_inequality">Jensen’s inequality</a>, we obtain just that: <span class="math display">\[
+\begin{split}
+H\big(\theta,\theta^{(l-1)}\big) &amp;= \mathbb{E}_{\theta^{(l-1)}} \left\lbrace \log\frac{f_\theta(X_{miss}|X_{obs})}{f_{\theta^{(l-1)}}(X_{miss}|X_{obs})} \middle| X_{obs} \right\rbrace + H\big(\theta^{(l-1)},\theta^{(l-1)}\big) \\
+&amp;\leq \log \underbrace{\mathbb{E}_{\theta^{(l-1)}} \left\lbrace \frac{f_\theta(X_{miss}|X_{obs})}{f_{\theta^{(l-1)}}(X_{miss}|X_{obs})} \middle| X_{obs} \right\rbrace}_{= \int \frac{f_\theta(x_{miss}|X_{obs})}{f_{\theta^{(l-1)}}(x_{miss}|X_{obs})} f_{\theta^{(l-1)}}(x_{miss}|X_{obs}) d x_{miss} = 1} + H\big(\theta^{(l-1)},\theta^{(l-1)}\big)
+\end{split}
+\]</span> and so indeed <span class="math inline">\(H\big(\theta,\theta^{(l-1)}\big) \leq H\big(\theta^{(l-1)},\theta^{(l-1)}\big)\)</span>.
+<div style="text-align: right">
+<strong>Q.E.D.</strong>
+</div>
+<section id="speed-of-convergence" class="level2">
+<h2 class="anchored" data-anchor-id="speed-of-convergence">Speed of Convergence</h2>
+<p>Let <span class="math inline">\(M:\Theta \to \Theta\)</span> be the mapping that is implicitly defined by the EM algorithm, i.e., let <span class="math inline">\(\theta^{(l)} = M\big(\theta^{(l-1)}\big)\)</span> for <span class="math inline">\(l = 1,2\ldots\)</span>. Let us call <span class="math inline">\(M\)</span> the <em>iteration map</em> and assume that it actually exists and that <span class="math inline">\(\{ \theta^{(l)} \}\)</span> converges to some <span class="math inline">\(\theta^\star\)</span>. Then <span class="math inline">\(\theta^\star\)</span> must be a fixed point of the iteration map: <span class="math display">\[\theta^\star = M(\theta^\star).\]</span> In the neighborhood of <span class="math inline">\(\theta^\star\)</span>, we have by a first order Taylor expansion: <span class="math display">\[\theta^{(l)} - \theta^\star \approx \mathbf{J}(\theta^\star) \; (\theta^{(l-1)} - \theta^\star),\]</span> where <span class="math inline">\(\mathbf{J}(\theta)\)</span> is the Jacobi (the matrix of partial derivatives of all the components of <span class="math inline">\(M\)</span>) and <span class="math inline">\(\mathbf{J}(\theta^\star)\)</span> is approximately the rate of convergence.</p>
+<p>If <span class="math inline">\(\| \mathbf{J}(\theta^\star) \| &lt; 1\)</span>, then <span class="math inline">\(M\)</span> is a contraction (it maps points closer together) and we may hope for convergence, by the contraction mapping theorem.</p>
+<p>Smaller <span class="math inline">\(\| \mathbf{J}(\theta^\star) \|\)</span> correspond to a faster convergence speed, though the convergence rate is always linear (a.k.a. exponential, because <span class="math inline">\(\| \theta^{(l)} - \theta^\star \| \approx \| \mathbf{J}(\theta^\star)\|^l \; \| \theta^{(0)} - \theta^\star \|\)</span>).</p>
+<p>Interestingly, it can be shown that <span class="math display">\[ \mathbf{J}(\theta^\star) = \mathbf{J}_{comp}^{-1}(\theta^\star)\; \mathbf{J}_{miss}(\theta^\star),\]</span> where <span class="math inline">\(\mathbf{J}_{comp}(\theta^\star)\)</span> is <a href="https://en.wikipedia.org/wiki/Fisher_information">Fisher information matrix</a> of the complete data set at <span class="math inline">\(\theta^\star\)</span>, and <span class="math inline">\(\mathbf{J}_{miss}(\theta^\star)\)</span> similarly but of the missing data only. Thus the EM convergence rate is given by the information ratio, which measures the proportion of information about <span class="math inline">\(\theta\)</span> that is missing, by only observing <span class="math inline">\(X_{obs}\)</span> compared to the full <span class="math inline">\(X\)</span>. The greater the proportion of missing information, the slower the rate of convergence.</p>
+</section>
+</section>
+<section id="mm-algorithms" class="level1">
+<h1>MM algorithms</h1>
+<p>Generally speaking, closed-form MLEs are rather an exception than a rule. There are many non-trivial cases where MLE has to be obtained via numerical optimization. In this section, we will see that the EM algorithm, despite the statistical jargon evolving around the concept of missing data and calculating expected likelihoods, can also be seen as an optimization algorithm for finding MLEs numerically.</p>
+<p>Apart from coping with missing data via the EM algorithm, we all know another instance of a numerical algorithm that is commonly applied to calculate MLEs: iteratively reweighted least squares (IRLS) used to estimate parameters in generalized linear models. Actually, both IRLS and EM are special cases of a more general class of algorithms called the MM algorithms. The letters MM stand either for “majorization-minimization” or “minorization-maximization”. Let us focus on the former. Assume we want to minimize a function <span class="math inline">\(f : \mathbb{R}^p \to R\)</span>.</p>
+<p><strong>Definition</strong>: A function <span class="math inline">\(g(\mathbf{x} | \mathbf{x}^{(l)})\)</span> is said to <em>majorize</em> function <span class="math inline">\(f : \mathbb{R}^p \to R\)</span> at <span class="math inline">\(\mathbf{x}^{(l)}\)</span> provided <span class="math display">\[
+\begin{split}
+f(\mathbf{x}) &amp;\leq g(\mathbf{x} | \mathbf{x}^{(l)}), \qquad \forall\, \mathbf{x}, \\
+f(\mathbf{x}^{(l)}) &amp;= g(\mathbf{x}^{(l)} | \mathbf{x}^{(l)}).
+\end{split}
+\]</span></p>
+<p>In other words, the surface <span class="math inline">\(\mathbf{x} \mapsto g(\mathbf{x} | \mathbf{x}^{(l)})\)</span> is above the surface <span class="math inline">\(f(\mathbf{x})\)</span>, and it is touching it at <span class="math inline">\(\mathbf{x}^{(l)}\)</span>.</p>
+<p>Assume that our goal is to minimize a function <span class="math inline">\(f : \mathbb{R}^p \to R\)</span>. The basic idea of the MM algorithm is to start from an initial guess <span class="math inline">\(\mathbf{x}^{(0)}\)</span> and for <span class="math inline">\(l=1,2,\ldots\)</span> iterate between the following two steps until convergence:</p>
+<ul>
+<li><strong>Majorization step</strong>: construct <span class="math inline">\(g(\mathbf{x} | \mathbf{x}^{(l-1)})\)</span>, i.e., construct a majorizing function to <span class="math inline">\(f\)</span> at <span class="math inline">\(\mathbf{x}^{(l-1)}\)</span></li>
+<li><strong>Minimization step</strong>: set <span class="math inline">\(\mathbf{x}^{(l)} = \mathrm{arg \, min}_\mathbf{x} g(\mathbf{x} | \mathbf{x}^{(l-1)})\)</span>, i.e., minimize the majorizing function</li>
+</ul>
+<p>Note that immediately by the construction of the sequence, we have <span class="math display">\[
+f(\mathbf{x}^{(l)}) = g(\mathbf{x}^{(l)} | \mathbf{x}^{(l-1)}) \leq g(\mathbf{x}^{(l-1)} | \mathbf{x}^{(l-1)}) = f(\mathbf{x}^{(l-1)}).
+\]</span> Thus, MM algorithms trivially converge monotonically (provided they converge, which we will address below).</p>
+<p>Now, we will show that the E-step in the EM algorithm is just a specific way to construct majorizations. Therefore we will have the above claim (the ascent property of the EM algorithm) proven.</p>
+<section id="e-step-minorizes" class="level2">
+<h2 class="anchored" data-anchor-id="e-step-minorizes">E-step Minorizes</h2>
+<p>Here we will cast the EM algorithm in the MM framework. While we have developed MM in the “majorization-minimization” setup, the EM naturally lies in the “minorization-maximization” setup, since we try to maximize the likelihood. To connect the two worlds that only differ by a sign, let’s minimize the negative log-likelihood here instead. So consider the following equivalent formulation of the EM algorithm aimed at minimizing <span class="math inline">\(- \ell_{obs}(\theta)\)</span>: <span class="math display">\[
+\begin{split}
+\textbf{E-step:} \quad Q(\theta|\theta^{(l-1)}) &amp;:= \mathbb{E}_{\theta^{(l-1)}}\big[ - \ell_{comp}(\theta) \big| X_{obs} \big] \\
+\textbf{M-step:} \quad\quad\qquad \theta^{(l)} &amp;:= \mathrm{arg\,min}_{\theta} Q(\theta|\theta^{(l-1)})
+\end{split}
+\]</span></p>
+<p>From the proof of Proposition 1 above, we have (incorporating the extra sign) <span class="math display">\[
+- \ell_{obs}(\theta) = - Q(\theta|\theta^{(l-1)}) + H(\theta, \theta^{(l-1)})
+\]</span> and since as shown in the proof of Proposition 1 above <span class="math inline">\(H(\theta, \theta^{(l-1)}) \leq H(\theta^{(l-1)}, \theta^{(l-1)})\)</span>, we obtain <span class="math display">\[
+- \ell_{obs}(\theta) \leq - Q(\theta|\theta^{(l-1)}) + H(\theta^{(l-1)}, \theta^{(l-1)}) =: \widetilde{Q}(\theta|\theta^{(l-1)})
+\]</span> with equality at <span class="math inline">\(\theta = \theta^{(l-1)}\)</span>.</p>
+<p>Hence <span class="math inline">\(\widetilde{Q}(\theta|\theta^{(l-1)})\)</span> is majorizing <span class="math inline">\(- \ell_{obs}(\theta)\)</span> at <span class="math inline">\(\theta = \theta^{(-l)}\)</span>. Finally, since <span class="math inline">\(H(\theta^{(l-1)}, \theta^{(l-1)})\)</span> is a constant (w.r.t. <span class="math inline">\(\theta\)</span>), minimizing <span class="math inline">\(Q\)</span> is equivalent to minimizing <span class="math inline">\(\widetilde{Q}\)</span>.</p>
+<p>We have shown above that EM is a special case of MM. If we remove the extra sign, it is clear that the E-step (of the standard EM formulation targeted to maximize the log-likelihood) minorizes the observed log-likelihood up to a constant.</p>
+</section>
+<section id="convergence-of-mm-algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="convergence-of-mm-algorithms">Convergence of MM algorithms</h2>
+<p><strong>Proposition.</strong> (Lange, 2013, Proposition 12.4.4) Suppose that all stationary points of <span class="math inline">\(f(\mathbf{x})\)</span> are isolated and that the stated differentiability, coerciveness, and convexity assumptions are true.</p>
+<p>Then any sequence that iterates <span class="math inline">\(\mathbf{x}^{(l)} = M(\mathbf{x}^{(l-1)})\)</span>, generated by the iteration map <span class="math inline">\(M(\mathbf {x})\)</span> of the MM algorithm possesses a limit, and that limit is a stationary point of <span class="math inline">\(f(\mathbf {x})\)</span>. If <span class="math inline">\(f(\mathbf {x})\)</span> is strictly convex, then <span class="math inline">\(\lim_{l \to \infty} \mathbf{x}^{(l)}\)</span> is the minimum point.</p>
+<p>The previous proposition does not properly state its assumptions, but just briefly:</p>
+<ol type="1">
+<li>differentiability – conditions on the majorizing functions guaranteeing differentiability of the iteration map <span class="math inline">\(M\)</span>.</li>
+<li>coerciveness – a function <span class="math inline">\(f: \mathbb{R}^p \to R\)</span> is <em>coercive</em> if, on any line in <span class="math inline">\(R^p\)</span>, it escapes to infinity at <span class="math inline">\(\pm \infty\)</span>.</li>
+<li>convexity – this is clear, <span class="math inline">\(f\)</span> has to be convex. On one hand, this assumption is just a technical assumption, algorithms with the monotone convergence property will in practice always converge to a stationary point. On the other hand, we are mostly interested in the strictly convex cases anyway.</li>
+</ol>
+<p>There are two points to be made here:</p>
+<ul>
+<li>In numerical optimization, there are many different approaches to do the same thing, and in the case of nice (simple) problems they coincide. Not all IRLS algorithms can be seen as MM algorithms, but the EM algorithm is just a special case of MM. That doesn’t mean, however, that taking expectation to “complete” data has to be the most natural way to find minorizations, but in statistics this is what we often encounter.</li>
+<li>Optimization problems in statistics are often nice from the optimization perspective: the most important distributions lead to log-concave likelihoods (e.g., exponential families), hence convexity; likelihood functions are typically coercive; and taking expectations of log-likelihood (which is typically itself differentiable) amounts to integration, hence differentiability.</li>
+</ul>
+</section>
+</section>
+<section id="some-comments-about-em" class="level1">
+<h1>Some Comments about EM</h1>
+<ul>
+<li>It is numerically stable, which is a consequence of the monotone convergence property of all MM algorithms.</li>
+<li>Computational costs per iteration are typically very favorable.</li>
+<li>However, the algorithm’s speed of convergence is slow, and can behave poorly in regions of a flat landscape.
+<ul>
+<li>Again, this is true for all MM algorithm, but in statistics this often poses no serious issues, since early stopping is rarely a problem in statistics. The uncertainty that arises from randomness usually outweighs numerical errors. In other words, if the landscape around the optimum, is flat, we might end up with an estimator far away from the truth. But at the same time, the confidence region for the parameter will be adequately large.</li>
+<li>On the other hand, this can be a problem in case of a flat landscape not around the optimum, but one that is met by the algorithm due to a poor starting point. For this reason, starting point should be chosen carefully, and numerous starting points should be examined.</li>
+</ul></li>
+<li>The convergence can be monitored by looking at <span class="math inline">\(\|\mathbf{x}^{(l)} - \mathbf{x}^{(l-1)} \|\)</span> and <span class="math inline">\(| f(\mathbf{x}^{(l)}) - f(\mathbf{x}^{(l-1)})|\)</span>.</li>
+<li>The M-step often does not have a closed form solution either, but is typically much simpler than the original problem. If iterative algorithm is used for the M-step, early stopping for the inner iteration is desirable.</li>
+</ul>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li>Lange, K. (2013). <em>Optimization</em>. 2nd Edition.</li>
+<li>Lange, K. (2016). <em>MM optimization algorithms</em>.</li>
+<li>Dempster, A. P., N. M. Laird &amp; D. B. Rubin. (1977) “Maximum likelihood from incomplete data via the EM algorithm.” <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 39.1: 1-22.
+<ul>
+<li>one of the most cited papers in statistics of all time</li>
+</ul></li>
+<li>Little, R. J., &amp; Rubin, D. B. (2019). <em>Statistical analysis with missing data</em>. 3rd Edition.</li>
+<li>McLachlan, G.J., &amp; Krishan, T. (2007). <em>The EM algorithm and extensions</em>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        console.log("RESIZE");
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../notes/week_05.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cross-Validation</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../resources/computing/intro_to_r/index.html" class="pagination-link">
+        <span class="nav-page-text">R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2023, Charles Dufour</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
