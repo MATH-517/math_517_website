@@ -67,6 +67,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="MATH 517 - Exercise 3">
 <meta property="og:description" content="EM for multinomial">
@@ -414,7 +416,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>To be posted soon.</p>
+<p>This is one of the original illustrating examples for the use of the EM algorithm.</p>
+<p>Suppose that a vector of observed counts <span class="math inline">\(y=(125,18,20,34)\)</span> arises from a multinomial distribution with cell-probabilities <span class="math inline">\((\frac{1}{2}+\frac{\theta}{4}, \frac{1-\theta}{4}, \frac{1-\theta}{4}, \frac{\theta}{4})\)</span>. The aim is to find the ML estimate of <span class="math inline">\(\theta\)</span>. The density of the observed data is <span class="math display">\[
+f_{Y \mid \Theta}(y \mid \theta)=\frac{n !}{y_{1} ! y_{2} ! y_{3} ! y_{4} !}\left(\frac{1}{2}+\frac{\theta}{4}\right)^{y_1}\left(\frac{1}{4}-\frac{\theta}{4}\right)^{y_2}\left(\frac{1}{4}-\frac{\theta}{4}\right)^{y_3}\left(\frac{\theta}{4}\right)^{y_4}
+\]</span> Although the log-likelihood can be maximized explicitly we use the example to illustrate the EM algorithm.</p>
+<p>To view the problem as an unobserved data problem, we would think of it as a multinomial experiment with five categories with observations <span class="math inline">\(x=\left(y_{11}, y_{12}, y_2, y_3, y_4, y_5\right)\)</span>, each with cell probability <span class="math inline">\((1 / 2, \theta / 4,(1-\theta) / 4,(1-\theta) / 4, \theta / 4)\)</span>. That is, we split the first category into two and we can only observe the sum <span class="math inline">\(y_1=y_{11}+y_{12}\)</span>.</p>
+<ul>
+<li>Write down the complete likelihood</li>
+<li>Perform the EM algorithm</li>
+<li>Find the stationary solution which should correspond to the closed-form solution for the ML estimate</li>
+</ul>
 
 
 
