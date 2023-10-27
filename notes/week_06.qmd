@@ -218,7 +218,7 @@ Notice that, even though it might feel quite natural, calculating the expected c
 
 # Convergence Properties
 
-Firstly, we show that EM algorithm has the so-called monotone convergence property.
+Firstly, we show that the EM algorithm has the so-called monotone convergence property.
 
 **Proposition 1**: $\ell_{obs}(\theta^{(l)}) \geq \ell_{obs}(\theta^{(l-1)})$
 
@@ -226,7 +226,7 @@ Firstly, we show that EM algorithm has the so-called monotone convergence proper
 $$\ell_{comp}(\theta) = \log f_\theta(X_{miss}|X_{obs}) + \ell_{obs}(\theta).$$
 Notice that $\ell_{obs}(\theta) = \ell_{comp}(\theta) - \log f_\theta(X_{miss}|X_{obs})$ does not depend on $X_{miss}$ ($\ell_{obs}(\theta)$ clearly does not) and hence we can condition on $X_{obs}$ under any value of the parameter $\theta$ without really doing anything:
 $$\ell_{obs}(\theta) = \underbrace{\E_{\theta^{(l-1)}} \big\lbrace \ell_{comp}(\theta) \big| X_{obs} \big\rbrace}_{= Q\big(\theta,\theta^{(l-1)}\big)} - \underbrace{\E_{\theta^{(l-1)}} \big\lbrace \log f_\theta(X_{miss}|X_{obs}) \big| X_{obs} \big\rbrace}_{ =: H\big(\theta,\theta^{(l-1)}\big)}$$
-And so when we take $\widehat{\theta}^{(l)} = \mathrm{arg\,max}_{\theta}\; Q\big(\theta,\widehat{\theta}^{(l-1)}\big)$, we only have to show we have not increased $- H\big(\cdot, \theta^{(l-1)}\big)$. Dividing and multiplying by $f_{\theta^{(l-1)}}(X_{miss}|X_{obs})$ and using the [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality), we obtain just that:
+And so when we take $\widehat{\theta}^{(l)} = \mathrm{arg\,max}_{\theta}\; Q\big(\theta,\widehat{\theta}^{(l-1)}\big)$, we only have to show that we have not increased $- H\big(\cdot, \theta^{(l-1)}\big)$. Dividing and multiplying by $f_{\theta^{(l-1)}}(X_{miss}|X_{obs})$ and using the [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality), we obtain just that:
 $$
 \begin{split}
 H\big(\theta,\theta^{(l-1)}\big) &= \E_{\theta^{(l-1)}} \left\lbrace \log\frac{f_\theta(X_{miss}|X_{obs})}{f_{\theta^{(l-1)}}(X_{miss}|X_{obs})} \middle| X_{obs} \right\rbrace + H\big(\theta^{(l-1)},\theta^{(l-1)}\big) \\
