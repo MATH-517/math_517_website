@@ -257,7 +257,7 @@ Generally speaking, closed-form MLEs are rather an exception than a rule. There 
 
 Apart from coping with missing data via the EM algorithm, we all know another instance of a numerical algorithm that is commonly applied to calculate MLEs: iteratively reweighted least squares (IRLS) used to estimate parameters in generalized linear models. Actually, both IRLS and EM are special cases of a more general class of algorithms called the MM algorithms. The letters MM stand either for "majorization-minimization" or "minorization-maximization". Let us focus on the former. Assume we want to minimize a function $f : \R^p \to R$.
 
-**Definition**: A function $g(\mathbf{x} | \mathbf{x}^{(l)})$ is said to *majorize* function $f : \R^p \to R$ at $\mathbf{x}^{(l)}$ provided
+**Definition**: A function $g(\mathbf{x} | \mathbf{x}^{(l)})$ is said to *majorize* a function $f : \R^p \to R$ at $\mathbf{x}^{(l)}$ provided
 $$
 \begin{split}
 f(\mathbf{x}) &\leq g(\mathbf{x} | \mathbf{x}^{(l)}), \qquad \forall\, \mathbf{x}, \\
@@ -294,23 +294,23 @@ From the proof of Proposition 1 above, we have (incorporating the extra sign)
 $$
 - \ell_{obs}(\theta) = - Q(\theta|\theta^{(l-1)}) + H(\theta, \theta^{(l-1)})
 $$
-and since as shown in the proof of Proposition 1 above $H(\theta, \theta^{(l-1)}) \leq H(\theta^{(l-1)}, \theta^{(l-1)})$, we obtain
+and since, as shown in the proof of Proposition 1 above, $H(\theta, \theta^{(l-1)}) \leq H(\theta^{(l-1)}, \theta^{(l-1)})$, we obtain
 $$
 - \ell_{obs}(\theta) \leq - Q(\theta|\theta^{(l-1)}) + H(\theta^{(l-1)}, \theta^{(l-1)}) =: \widetilde{Q}(\theta|\theta^{(l-1)})
 $$
 with equality at $\theta = \theta^{(l-1)}$.
 
-Hence $\widetilde{Q}(\theta|\theta^{(l-1)})$ is majorizing $- \ell_{obs}(\theta)$ at $\theta = \theta^{(-l)}$. Finally, since $H(\theta^{(l-1)}, \theta^{(l-1)})$ is a constant (w.r.t. $\theta$), minimizing $Q$ is equivalent to minimizing $\widetilde{Q}$.
+Hence $\widetilde{Q}(\theta|\theta^{(l-1)})$ is majorizing $- \ell_{obs}(\theta)$ at $\theta = \theta^{(l-1)}$. Finally, since $H(\theta^{(l-1)}, \theta^{(l-1)})$ is a constant (w.r.t. $\theta$), minimizing $Q$ is equivalent to minimizing $\widetilde{Q}$.
 
 We have shown above that EM is a special case of MM. If we remove the extra sign, it is clear that the E-step (of the standard EM formulation targeted to maximize the log-likelihood) minorizes the observed log-likelihood up to a constant.
 
 
 ## Convergence of MM algorithms
 
-**Proposition.** (Lange, 2013, Proposition 12.4.4) Suppose that all stationary points of $f(\mathbf{x})$ are isolated and that the stated differentiability, coerciveness, and convexity assumptions are true. 
+**Proposition.** (Lange, 2013, Proposition 12.4.4) Suppose that all stationary points of $f(\mathbf{x})$ are isolated and that the below-stated differentiability, coerciveness, and convexity assumptions are true. 
 
-Then any sequence that iterates $\mathbf{x}^{(l)} = M(\mathbf{x}^{(l-1)})$, generated
-by the iteration map $M(\mathbf {x})$ of the MM algorithm possesses a limit, and
+Then, any sequence that iterates $\mathbf{x}^{(l)} = M(\mathbf{x}^{(l-1)})$, generated
+by the iteration map $M(\mathbf {x})$ of the MM algorithm, possesses a limit, and
 that limit is a stationary point of $f(\mathbf {x})$. If $f(\mathbf {x})$ is strictly convex, then
 $\lim_{l \to \infty} \mathbf{x}^{(l)}$ is the minimum point.
 
@@ -322,7 +322,7 @@ The previous proposition does not properly state its assumptions, but just brief
 
 There are two points to be made here:
 
-* In numerical optimization, there are many different approaches to do the same thing, and in the case of nice (simple) problems they coincide. Not all IRLS algorithms can be seen as MM algorithms, but the EM algorithm is just a special case of MM. That doesn't mean, however, that taking expectation to "complete" data has to be the most natural way to find minorizations, but in statistics this is what we often encounter.
+* In numerical optimization, there are many different approaches to do the same thing, and in the case of nice (simple) problems, they coincide. Not all IRLS algorithms can be seen as MM algorithms, but the EM algorithm is just a special case of MM. That doesn't mean, however, that taking expectation to "complete" data has to be the most natural way to find minorizations, but in statistics this is what we often encounter.
 * Optimization problems in statistics are often nice from the optimization perspective: the most important distributions lead to log-concave likelihoods (e.g., exponential families), hence convexity; likelihood functions are typically coercive; and taking expectations of log-likelihood (which is typically itself differentiable) amounts to integration, hence differentiability.
 
 # Some Comments about EM
