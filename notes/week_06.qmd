@@ -226,7 +226,7 @@ Firstly, we show that the EM algorithm has the so-called monotone convergence pr
 $$\ell_{comp}(\theta) = \log f_\theta(X_{miss}|X_{obs}) + \ell_{obs}(\theta).$$
 Notice that $\ell_{obs}(\theta) = \ell_{comp}(\theta) - \log f_\theta(X_{miss}|X_{obs})$ does not depend on $X_{miss}$ ($\ell_{obs}(\theta)$ clearly does not) and hence we can condition on $X_{obs}$ under any value of the parameter $\theta$ without really doing anything:
 $$\ell_{obs}(\theta) = \underbrace{\E_{\theta^{(l-1)}} \big\lbrace \ell_{comp}(\theta) \big| X_{obs} \big\rbrace}_{= Q\big(\theta,\theta^{(l-1)}\big)} - \underbrace{\E_{\theta^{(l-1)}} \big\lbrace \log f_\theta(X_{miss}|X_{obs}) \big| X_{obs} \big\rbrace}_{ =: H\big(\theta,\theta^{(l-1)}\big)}$$
-And so when we take $\widehat{\theta}^{(l)} = \mathrm{arg\,max}_{\theta}\; Q\big(\theta,\widehat{\theta}^{(l-1)}\big)$, we only have to show that we have not increased $- H\big(\cdot, \theta^{(l-1)}\big)$. Dividing and multiplying by $f_{\theta^{(l-1)}}(X_{miss}|X_{obs})$ and using the [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality), we obtain just that:
+And so when we take $\widehat{\theta}^{(l)} = \mathrm{arg\,max}_{\theta}\; Q\big(\theta,\widehat{\theta}^{(l-1)}\big)$, we only have to show that we have not increased $- H\big(\cdot, \theta^{(l-1)}\big)$. Dividing and multiplying by $f_{\theta^{(l-1)}}(X_{miss}|X_{obs})$ and using the [Jensen's inequality](https://en.wikipedia.org/wiki/Jensen%27s_inequality), we obtain that:
 $$
 \begin{split}
 H\big(\theta,\theta^{(l-1)}\big) &= \E_{\theta^{(l-1)}} \left\lbrace \log\frac{f_\theta(X_{miss}|X_{obs})}{f_{\theta^{(l-1)}}(X_{miss}|X_{obs})} \middle| X_{obs} \right\rbrace + H\big(\theta^{(l-1)},\theta^{(l-1)}\big) \\
@@ -243,13 +243,13 @@ In the neighborhood of $\theta^\star$, we have by a first order Taylor expansion
 $$\theta^{(l)} - \theta^\star \approx \mathbf{J}(\theta^\star) \; (\theta^{(l-1)} - \theta^\star),$$
 where $\mathbf{J}(\theta)$ is the Jacobi (the matrix of partial derivatives of all the components of $M$) and $\mathbf{J}(\theta^\star)$ is approximately the rate of convergence.
 
-If $\| \mathbf{J}(\theta^\star) \| < 1$, then $M$ is a contraction (it maps points closer together) and we may hope for convergence, by the contraction mapping theorem. 
+If $\| \mathbf{J}(\theta^\star) \| < 1$, then $M$ is a contraction (it maps points closer together) and we may hope for convergence, by the contraction mapping theorem (if a function is a contraction on a complete metric space, then it has a unique fixed point).
 
 Smaller $\| \mathbf{J}(\theta^\star) \|$ correspond to a faster convergence speed, though the convergence rate is always linear (a.k.a. exponential, because $\| \theta^{(l)} - \theta^\star \| \approx \| \mathbf{J}(\theta^\star)\|^l \; \| \theta^{(0)} - \theta^\star \|$).
 
 Interestingly, it can be shown that
 $$ \mathbf{J}(\theta^\star) = \mathbf{J}_{comp}^{-1}(\theta^\star)\; \mathbf{J}_{miss}(\theta^\star),$$
-where $\mathbf{J}_{comp}(\theta^\star)$ is [Fisher information matrix](https://en.wikipedia.org/wiki/Fisher_information) of the complete data set at $\theta^\star$, and $\mathbf{J}_{miss}(\theta^\star)$ similarly but of the missing data only. Thus the EM convergence rate is given by the information ratio, which measures the proportion of information about $\theta$ that is missing, by only observing $X_{obs}$ compared to the full $X$. The greater the proportion of missing information, the slower the rate of convergence.
+where $\mathbf{J}_{comp}(\theta^\star)$ is the [Fisher information matrix](https://en.wikipedia.org/wiki/Fisher_information) of the complete data set at $\theta^\star$, and $\mathbf{J}_{miss}(\theta^\star)$ similarly but of the missing data only. Thus the EM convergence rate is given by the information ratio, which measures the proportion of information about $\theta$ that is missing, by only observing $X_{obs}$ compared to the full $X$. The greater the proportion of missing information, the slower the rate of convergence.
 
 # MM algorithms
 
