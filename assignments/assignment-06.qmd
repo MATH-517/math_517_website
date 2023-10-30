@@ -59,6 +59,12 @@ Compare the methods using the sup-norm. [^3]
 
 ## Notes on implementation
 
+::: callout-important
+
+For the inverse transform method, you can either use the functions mentionned below or implement it yourself. For the Box-Muller transform and rejection sampling, you will need to implement the methods yourself.
+
+:::
+
 - `R` uses by default the inverse transform in `rnorm()` (see [the source code](https://github.com/r-devel/r-svn/blob/19f9a8f0b3c7659876aac249c851dff93d55e4d9/src/nmath/snorm.c#L265) for other options)
 - For `Python`, you can use the code below to generate samples from a standard normal distribution using the inverse transform method:
   
