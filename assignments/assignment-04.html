@@ -457,7 +457,7 @@ Invite link for GitHub Classroom
 <li>the bandwidth <span class="math inline">\(\textcolor{red}{h}\)</span> from candidate values <span class="math inline">\(\{3,4,\ldots,15\}\)</span></li>
 </ul>
 <p>for a local polynomial smoother<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> of the form</p>
-<p><span class="math display">\[ \underset{\boldsymbol{\beta} \in \mathbb{R}^{\textcolor{red}{p}+1}}{\operatorname{argmin}} \sum_{i=1}^n [Y_i - \sum_{j=0}^\textcolor{red}{p} \beta_j(x)\left(x_i-x\right)^j]^2 K\left(\frac{X_i-x}{\textcolor{red}{h}}\right),\]</span></p>
+<p><span class="math display">\[ \underset{\boldsymbol{\beta} \in \mathbb{R}^{\textcolor{red}{p}+1}}{\operatorname{argmin}} \sum_{i=1}^n [Y_i - \sum_{j=0}^\textcolor{red}{p} \beta_j\left(X_i-x\right)^j]^2 K\left(\frac{X_i-x}{\textcolor{red}{h}}\right),\]</span></p>
 <p>where <span class="math inline">\(K(x)=\frac{3}{4}(1 - x^2)\)</span> if <span class="math inline">\(|x|\leq 1\)</span> and <span class="math inline">\(0\)</span> otherwise is the Epanechnikov kernel.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
