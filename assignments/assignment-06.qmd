@@ -38,9 +38,9 @@ Your `README.md` should contain instructions on how to reproduce the PDF report 
 
 We will study empirically the following methods [^1] for generating from a Gaussian distribution $\mathcal{N}(0,1)$: 
 
-- The inverse transform 
+- The inverse transform
 - The Box-Muller transform
-- Rejection sampling
+- Rejection sampling using a doubly exponential proposal distribution
 
 We will compare the performance of these methods using the supremum norm
 $$
@@ -54,7 +54,7 @@ For each of the methods, we will generate $n$ samples and compute the empirical 
 1. Draw a sample of size $n = 10^5$ using the method.
 3. Compute the sup-norm between the empirical and theoretical CDFs.
 
-Compare the methods using the sup-norm. [^3]
+Compare the methods using the supremum norm. [^3]
 
 
 ## Notes on implementation
