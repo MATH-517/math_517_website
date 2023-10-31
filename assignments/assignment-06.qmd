@@ -40,7 +40,7 @@ We will study empirically the following methods [^1] for generating from a Gauss
 
 - The inverse transform
 - The Box-Muller transform
-- Rejection sampling using a doubly exponential proposal distribution
+- Rejection sampling (check [the slides](../lectures/08_MonteCarlo.pdf#page=13) for the proposal)
 
 We will compare the performance of these methods using the supremum norm
 $$
