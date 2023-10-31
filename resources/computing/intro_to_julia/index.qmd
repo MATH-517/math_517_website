@@ -18,6 +18,9 @@ listing:
 editor: visual
 ---
 
+[Julia for Optimization and Learning](https://juliateachingctu.github.io/Julia-for-Optimization-and-Learning/dev/) should
+contain everything (and more) that you need to know about `Julia` for this course.
+
 For a refresher on `Julia` basics, you can check out one of the following resources:
 
 - [Tutorials from the official documentation](https://julialang.org/learning/tutorials/)
