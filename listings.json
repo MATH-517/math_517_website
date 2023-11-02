@@ -1,5 +1,11 @@
 [
   {
+    "listing": "/resources/computing/intro_to_julia/index.html",
+    "items": [
+      "/resources/computing/intro_to_julia/good_practice_julia.html"
+    ]
+  },
+  {
     "listing": "/resources/tips/reproducible_research.html",
     "items": []
   },
@@ -24,12 +30,6 @@
       "/resources/tutorials/github.html",
       "/resources/tutorials/github_classroom.html",
       "/resources/tutorials/installing_software.html"
-    ]
-  },
-  {
-    "listing": "/resources/computing/intro_to_julia/index.html",
-    "items": [
-      "/resources/computing/intro_to_julia/good_practice_julia.html"
     ]
   },
   {

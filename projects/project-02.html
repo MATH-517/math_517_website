@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -389,7 +408,19 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#topics-for-the-final-project" id="toc-topics-for-the-final-project" class="nav-link active" data-scroll-target="#topics-for-the-final-project">Topics for the final project</a>
+  <ul class="collapse">
+  <li><a href="#cross-validation-for-pca" id="toc-cross-validation-for-pca" class="nav-link" data-scroll-target="#cross-validation-for-pca">1. Cross-validation for PCA</a></li>
+  <li><a href="#comparison-of-local-regression-implementations-in-different-r-packages" id="toc-comparison-of-local-regression-implementations-in-different-r-packages" class="nav-link" data-scroll-target="#comparison-of-local-regression-implementations-in-different-r-packages">2. Comparison of local regression implementations in different R packages</a></li>
+  <li><a href="#comparison-of-variable-selectors-in-regression" id="toc-comparison-of-variable-selectors-in-regression" class="nav-link" data-scroll-target="#comparison-of-variable-selectors-in-regression">3. Comparison of variable selectors in regression</a></li>
+  <li><a href="#the-em-algorithm-for-different-patterns-of-missingness" id="toc-the-em-algorithm-for-different-patterns-of-missingness" class="nav-link" data-scroll-target="#the-em-algorithm-for-different-patterns-of-missingness">4. The EM algorithm for different patterns of missingness</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MATH-517/MATH_517_website/edit/main/projects/project-02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MATH-517/MATH_517_website/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -426,6 +457,33 @@ Important
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Invite link for GitHub Classroom
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use the corresponding invite link in <a href="https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing">this google doc</a> (accessible with your EPFL account) to accept the project, and either join an existing team or create a new one. Once this is done, go to the <a href="https://github.com/MATH-517">course GitHub organization</a> and locate the repo titled <code>main-project-TEAM-NAME</code> to get started.</p>
+</div>
+</div>
+</div>
+<p>The goal of this project is quite broad, students are free to come up with their own ideas. While simulation studies are the designated topic, groups that found interesting data during the small project and would like to carry on analyzing it, or groups interested in studying a bit deeper one of the methodological concepts from this course are encouraged to approach the teachers during the exercises and discuss their ideas. <strong>Prospective topics for the final project will be gradually revealed during the lectures.</strong></p>
+<p>A part of the grade for the final project (10 % of the total grade, i.e.&nbsp;one quarter of the final project) will be awarded for value added (original data analysis, simulation study answering a previously unclear question, etc.). All of the prospective topics that will be introduced during the lecture will have this element, and by half-way through the semester (when the final project will start) it should be clear through the examples what the project should aspire to. We will also discuss this in person at some point, likely on Week 7. The remaining three quarters of the project (i.e.&nbsp;30 % of the total grade) will be awarded for</p>
+<ul>
+<li>quality of the Markdown report <em>(clarity, readability, structure, referencing, etc.)</em></li>
+<li>graphical considerations <em>(well chosen (as discussed during the course) graphics with captions, referenced from the main text)</em></li>
+<li>concepts explored beyond the scope of the course <em>(in the soft sense that they were not fully covered during classes)</em></li>
+<li>overall quality <em>(correctness, demonstration of understanding, etc.)</em></li>
+</ul>
+<p>A project seriously lacking in any of the criteria above will be penalized.</p>
+<section id="topics-for-the-final-project" class="level1">
+<h1>Topics for the final project</h1>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -435,34 +493,55 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use the corresponding invite link in <a href="https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing">this google doc</a> (accessible with your EPFL account) to accept the project, and either join an existing team or create a new one. Once this is done, go to the <a href="https://github.com/MATH-517">course GitHub organization</a> and locate the repo titled <code>main-project-TEAM-NAME</code> to get started.</p>
+<p>Unless otherwise stated, you are not required to code everything from scratch (unless there is no available source code).</p>
 </div>
 </div>
-<p>The goal of this project is quite broad, students are free to come up with their own ideas. While simulation studies are the designated topic, groups that found interesting data during the small project and would like to carry on analyzing it, or groups interested in studying a bit deeper one of the methodological concepts from this course are encouraged to approach the teachers during the exercises and discuss their ideas. <strong>Prospective topics for the final project will be gradually revealed during the lectures.</strong></p>
-<p>A part of the grade for the final project (10 % of the total grade, i.e.&nbsp;one quarter of the final project) will be awarded for value added (original data analysis, simulation study answering a previously unclear question, etc.). All of the prospective topics that will be introduced during the lecture will have this element, and by half-way through the semester (when the final project will start) it should be clear through the examples what the project should aspire to. We will also discuss this in person at some point, likely on Week 7. The remaining three quarters of the project (i.e.&nbsp;30 % of the total grade) will be awarded for</p>
+<section id="cross-validation-for-pca" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-for-pca">1. Cross-validation for PCA</h3>
 <ul>
-<li>quality of the Markdown report
-<ul>
-<li>clarity, readability, structure, referencing, etc.</li>
-</ul></li>
-<li>graphical considerations
-<ul>
-<li>well chosen (as discussed during the course) graphics with captions, referenced from the main text</li>
-</ul></li>
-<li>concepts explored beyond the scope of the course
-<ul>
-<li>in the soft sense that they were not fully covered during classes</li>
-</ul></li>
-<li>overall quality
-<ul>
-<li>correctness, demonstration of understanding, etc.</li>
-</ul></li>
+<li>A simulation study to compare the advantages of EM over the repaired CV for PCA, covered in <a href="../notes/week_05.html">Week 5</a>.</li>
+<li>Implement a third approach to CV for PCA based on matrix completion (boils down to performing SVD with missing data). Details about this approach are given in <a href="../notes/week_05.html#no.-of-component-selection-for-pca">the supplementary notes</a> and a deeper dive into the matter is covered in <span class="citation" data-cites="perry2009cross">Perry (<a href="#ref-perry2009cross" role="doc-biblioref">2009, sec. 5</a>)</span>.</li>
+<li>Compare the three methods.</li>
 </ul>
-<p>A project seriously lacking in any of the criteria above will be penalized.</p>
+</section>
+<section id="comparison-of-local-regression-implementations-in-different-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-of-local-regression-implementations-in-different-r-packages">2. Comparison of local regression implementations in different R packages</h3>
+<ul>
+<li><span class="citation" data-cites="deng2011density">Deng and Wickham (<a href="#ref-deng2011density" role="doc-biblioref">2011</a>)</span> examine several packages for KDE in . Not only there are huge differences in terms of speed, but some of the packages are even inconsistent! Makes one wonder what is the situation with local regression.</li>
+<li>The project should address the following question: When it comes to local regression, which packages/functions to avoid and which one(s) to use and under which setting (e.g., accuracy, speed, ability to handle large datasets, ability to handle missing data, etc )?</li>
+</ul>
+</section>
+<section id="comparison-of-variable-selectors-in-regression" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-of-variable-selectors-in-regression">3. Comparison of variable selectors in regression</h3>
+<ul>
+<li><span class="citation" data-cites="hastie2020best">Hastie, Tibshirani, and Tibshirani (<a href="#ref-hastie2020best" role="doc-biblioref">2020</a>)</span> have some surprising results in their simulation study, but one important method (adaptive lasso) is omitted. Try to recreate the study with adaptive lasso included (and perhaps elastic net, too?).</li>
+<li>The project should address the following question: When it comes to variable selection, which method to choose and under which settings and for which aim/criterion (explainability, predictability, or sparsity)?</li>
+</ul>
+</section>
+<section id="the-em-algorithm-for-different-patterns-of-missingness" class="level3">
+<h3 class="anchored" data-anchor-id="the-em-algorithm-for-different-patterns-of-missingness">4. The EM algorithm for different patterns of missingness</h3>
+<ul>
+<li>Comparison of the performances of the EM algorithm for different percentage of missing values and for different missing-data mechanisms</li>
+<li><em>Optional (if you have time and energy):</em> In a setting with missing data, what about comparing parameter estimates obtained via EM with those obtained (with ML) after imputation? You can choose one (or more) of the imputation methods described <a href="https://rmisstastic.netlify.app/how-to/impute/missImp.pdf">here</a>.</li>
+<li>The project should address the following question: When you are faced with missing data, when is the EM algorithm a good option for statistical inference (the estimation process)?</li>
+</ul>
 
 
 
-</main> <!-- /main -->
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-deng2011density" class="csl-entry" role="listitem">
+Deng, Henry, and Hadley Wickham. 2011. <span>“Density Estimation in r.”</span> <em>Electronic Publication</em>. <a href="https://vita.had.co.nz/papers/density-estimation.html">https://vita.had.co.nz/papers/density-estimation.html</a>.
+</div>
+<div id="ref-hastie2020best" class="csl-entry" role="listitem">
+Hastie, Trevor, Robert Tibshirani, and Ryan Tibshirani. 2020. <span>“<span class="nocase">Best Subset, Forward Stepwise or Lasso? Analysis and Recommendations Based on Extensive Comparisons</span>.”</span> <em>Statistical Science</em> 35 (4): 579–92. <a href="https://doi.org/10.1214/19-STS733">https://doi.org/10.1214/19-STS733</a>.
+</div>
+<div id="ref-perry2009cross" class="csl-entry" role="listitem">
+Perry, Patrick O. 2009. <em>Cross-Validation for Unsupervised Learning</em>. Stanford University. <a href="https://arxiv.org/pdf/0909.3052.pdf">https://arxiv.org/pdf/0909.3052.pdf</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -827,7 +906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/MATH-517/MATH_517_website/edit/main/projects/project-02.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MATH-517/MATH_517_website/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a></p>
 </div>
