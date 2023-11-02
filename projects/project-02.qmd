@@ -57,5 +57,11 @@ Unless otherwise stated, you are not required to code everything from scratch (u
 - *Optional (if you have time and energy):* In a setting with missing data, what about comparing parameter estimates obtained via EM with those obtained (with ML) after imputation? You can choose one (or more) of the imputation methods described [here](https://rmisstastic.netlify.app/how-to/impute/missImp.pdf).
 - The project should address the following question: When you are faced with missing data, when is the EM algorithm a good option for statistical inference (the estimation process)?
 
+### 5. Diving into one of the course topics, e.g., MM algorithms or Monte Carlo integration (Week 8)
 
+Consult with the teacher to define the project and ensure its feasibility.
+
+### 6. Dana analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
+
+Consult with the teacher to define the project and ensure its feasibility.
   
