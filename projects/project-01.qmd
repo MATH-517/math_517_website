@@ -8,7 +8,9 @@ subtitle: "Data visualization and exploration"
 **Due date: 11:59pm on Sunday, 22 October 2023.**
 :::
 
-::: callout-note
+::: {.callout-note collapse="true"}
+# Invite link for GitHub Classroom
+
 Use the corresponding invite link in [this google doc](https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing) (accessible with your EPFL account) to accept the project, and either join an existing team or create a new one. Once this is done, go to the [course GitHub organization](https://github.com/MATH-517) and locate the repo titled `mini-project-TEAM-NAME` to get started.
 :::
 
