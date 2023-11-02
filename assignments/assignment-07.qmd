@@ -34,14 +34,14 @@ Your `README.md` should contain instructions on how to reproduce the PDF report 
 :::
 
 
-For $X_1,\ldots,X_{100} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$, consider the following CIs for $\mathbb{E}[X_1] = 1/2$:
+For $X_1,\ldots,X_{100} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$, consider the following confidence intervals for $\mathbb{E}[X_1] = 1/2$:
 
-* asymptotic: $\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} z(\alpha) \right)$
-* studentized (bootstrap): $\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right)$ with $T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}^\star}$
-* non-studentized ($\star$): $\left(-\infty, \bar{X}_N + \frac{1}{\sqrt{N}} q^\star(\alpha) \right)$ with $T^\star = \sqrt{N}\big(\bar{X}_N^\star - \bar{X}_N\big)$
-* sample-truth-scaled ($\star$): $\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right)$ with $T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}}$
+* asymptotic: $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} z(\alpha) \right)$$
+* studentized (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}^\star}$$
+* non-studentized (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{1}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\big(\bar{X}_N^\star - \bar{X}_N\big)$$
+* sample-truth-scaled (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}}$$
 
-Verify coverage of these intervals via a simulation study of $10^3$ runs and report the coverage proportions as a table. Specifically, for every single one of $10^3$ simulation runs:
+Verify coverage of these intervals via a simulation study of $10^3$ runs and report the coverage proportions as a table. Specifically, for every run, do the following:
 
 * generate new data $X_1,\ldots,X_{100} \stackrel{\text{ind.}}{\sim} Exp(2)$
 * calculate the four confidence intervals

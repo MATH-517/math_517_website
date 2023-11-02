@@ -32,5 +32,132 @@ Your `README.md` should contain instructions on how to reproduce the PDF report 
 3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
 :::
 
+## Problem setting
 
-To be posted soon.
+Since black carbon (BC) is a pollutant known for its adverse health effects,
+it is of interest to monitor BC mass concentration in urban areas.
+While stationary measurement devices are able to precisely 
+record BC concentrations (random variable $X$), 
+simpler mobile devices provide more flexibility -- at the cost of
+some measurement noise $\varepsilon$.
+For a mobile measurement, only $Y = X + \varepsilon$ is observed, where we may assume $\varepsilon \sim N(0, \sigma^2)$ with known standard deviation $\sigma = 0.6\, \mu g m^{-3}$ based on lab experiments.
+
+To obtain a detailed overview over the BC concentrations in Lausanne,
+the aim is to add mobile measurements to those of available stationary devices. We want to predict $X$ given a noisy observation $Y=y$ using a
+Bayesian approach, with stationary measurements motivating a priori a Weibull distribution for $X$ with shape parameter $2$ and scale parameter $1.2$ (median $\approx 1 \, \mu g m^3$).
+
+## Task
+
+- Implement a Metropolis-Hastings-Algorithm for obtaining MCMC samples of $X \mid Y=y$ using $\mathcal{N}(x_{max}, 0.6^2)$ as fixed proposal distribution for all iterations, where $$x_{max} = \underset{x \in [0,\infty)}{\arg\max} f(x \mid Y=y)$$ is the posterior mode.
+
+- Run your algorithm for $y \in \{0.5, 1, 2\}$. In each run, draw $10^4$ samples[^1] after a burn-in of $10^3$.
+
+- In this specific scenario, the posterior is analytically available (see the code snipets below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of $y$.
+
+:::{.callout-tip}
+ It might be wise to compute $\log(\alpha)$ first in dependence on $\log$-densities to avoid numerical issues.
+:::
+
+::: {.callout-note appearance="minimal" icon=false collapse=true}
+# R code for the posterior density
+```r
+erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
+
+dposterior <- function(x, y, scale = 1.2, sd = .6) {
+  # x: evaluation points of the density
+  # y: observation Y=y (length 1),
+  # scale: scale parameter of Weibull prior (shape=2 fixed)
+  # sd: standard deviation of Gaussian error (mean=0 fixed)
+  a <- 1 / 2 * 1 / sd^2
+  c <- 1 / scale^2
+  k <- ifelse(x >= 0, x * exp(-a * (x - y)^2 - c * x^2), 0)
+  n <- exp(-a * (y^2)) *
+    (sqrt(pi) * a * y * exp(a^2 * y^2 / (a + c)) *
+      (erf(a * y / sqrt(a + c)) + 1) +
+      sqrt(a + c)) / (2 * (a + c)^(3 / 2))
+  return(k / n)
+}
+```
+:::
+
+::: {.callout-note appearance="minimal" icon=false collapse=true}
+
+# Python code for the posterior density
+
+```python
+from math import pi, sqrt, exp
+
+import numpy as np
+from scipy.special import erf
+
+
+def dposterior(x, y, scale=1.2, sd=0.6):
+    """
+    analytical posterior density of X given Y=y
+
+    Paramters
+    ---------
+        x:  Union[float, np.ndarray]
+            evaluation points of the density
+        y:  float
+            observation Y=y
+        scale:  float
+            scale parameter of Weibull prior (shape=2 fixed)
+        sd: float
+            standard deviation of Gaussian error (mean=0 fixed)
+    """
+    a = 1 / (2 * sd**2)
+    c = 1 / scale**2
+
+    k = np.where(x >= 0, x * np.exp(-a * (x - y) ** 2 - c * x**2), 0)
+    n = (
+        np.exp(-a * y**2)
+        * (
+            sqrt(pi)
+            * a
+            * y
+            * exp(a**2 * y**2 / (a + c))
+            * (erf(a * y / sqrt(a + c)) + 1)
+            + sqrt(a + c)
+        )
+        / (2 * (a + c) ** (3 / 2))
+    )
+    return k / n
+```
+::: 
+
+
+::: {.callout-note appearance="minimal" icon=false collapse=true}
+
+# Julia code for the posterior density
+
+```julia
+using SpecialFunctions
+
+"""
+analytical posterior density of X given Y=y
+
+Paramters
+- x:  evaluation points of the density
+- y:  observation Y=y
+- scale:  scale parameter of Weibull prior (shape=2 fixed)
+- sd: standard deviation of Gaussian error (mean=0 fixed)
+"""
+function dposterior(x, y; scale = 1.2, sd = 0.6)
+    a = 1 / (2 * sd^2)
+    c = 1 / scale^2
+
+    k = ifelse(x >= 0, x * exp(-a * (x - y)^2 - c * x^2), 0)
+    n = exp(-a * y^2) *
+        (√(π) * a * y * exp(a^2 * y^2 / (a + c)) *
+         (erf(a * y / √(a + c)) + 1) + √(a + c)) /
+        (2 * (a + c)^(3 / 2))
+
+    return k / n
+end
+```
+:::
+
+
+[^1]: less if it takes too long
+
