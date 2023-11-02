@@ -55,7 +55,7 @@ Bayesian approach, with stationary measurements motivating a priori a Weibull di
 - In this specific scenario, the posterior is analytically available (see the code snipets below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of $y$.
 
 :::{.callout-tip}
- It might be wise to compute $\log(\alpha)$ first in dependence on $\log$-densities to avoid numerical issues.
+ It might be wise to compute $\log(\alpha)$ first as a function of the $\log$-densities to avoid numerical issues.
 :::
 
 ::: {.callout-note appearance="minimal" icon=false collapse=true}
