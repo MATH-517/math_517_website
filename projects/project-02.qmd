@@ -1,5 +1,6 @@
 ---
 title: "Main project"
+bibliography: ref.bib
 ---
 
 
@@ -7,7 +8,9 @@ title: "Main project"
 **Due date: 11:59pm on Sunday, 24 December 2023.**
 :::
 
-::: callout-note
+::: {.callout-note collapse="true"}
+# Invite link for GitHub Classroom
+
 Use the corresponding invite link in [this google doc](https://docs.google.com/document/d/1XTO7obXEr2Yxllxk48wnZ5e49ptPGMsMyl40KEZDGRg/edit?usp=sharing) (accessible with your EPFL account) to accept the project, and either join an existing team or create a new one. Once this is done, go to the [course GitHub organization](https://github.com/MATH-517) and locate the repo titled `main-project-TEAM-NAME` to get started.
 :::
 
@@ -17,14 +20,48 @@ The goal of this project is quite broad, students are free to come up with their
 
 A part of the grade for the final project (10 % of the total grade, i.e. one quarter of the final project) will be awarded for value added (original data analysis, simulation study answering a previously unclear question, etc.). All of the prospective topics that will be introduced during the lecture will have this element, and by half-way through the semester (when the final project will start) it should be clear through the examples what the project should aspire to. We will also discuss this in person at some point, likely on Week 7. The remaining three quarters of the project (i.e. 30 % of the total grade) will be awarded for
 
-* quality of the Markdown report
-  - clarity, readability, structure, referencing, etc.
-* graphical considerations
-  - well chosen (as discussed during the course) graphics with captions, referenced from the main text
-* concepts explored beyond the scope of the course
-  - in the soft sense that they were not fully covered during classes
-* overall quality
-  - correctness, demonstration of understanding, etc.
+- quality of the Markdown report _(clarity, readability, structure, referencing, etc.)_
+- graphical considerations _(well chosen (as discussed during the course) graphics with captions, referenced from the main text)_
+- concepts explored beyond the scope of the course _(in the soft sense that they were not fully covered during classes)_
+- overall quality _(correctness, demonstration of understanding, etc.)_
 
 A project seriously lacking in any of the criteria above will be penalized.
 
+# Topics for the final project
+
+::: {.callout-note}
+Unless otherwise stated, you are not required to code everything from scratch (unless there is no available source code).
+:::
+  
+
+### 1. Cross-validation for PCA
+
+   - A simulation study to compare the advantages of EM over the repaired CV for PCA, covered in [Week 5](../notes/week_05.qmd).
+   - Implement a third approach to CV for PCA based on matrix completion (boils down to performing SVD with missing data). Details about this approach are given in [the supplementary notes](../notes/week_05.qmd#no.-of-component-selection-for-pca) and a deeper dive into the matter is covered in @perry2009cross [section 5].
+   - Compare the three methods.
+
+### 2. Comparison of local regression implementations in different R packages
+
+   - @deng2011density examine several packages for KDE in \texttt{R}. Not only there are huge differences in terms of speed, but some of the packages are even inconsistent! Makes one wonder what is the situation with local regression.
+   - The project should address the following question: When it comes to local regression, which packages/functions to avoid and which one(s) to use and under which setting (e.g., accuracy, speed, ability to handle large datasets, ability to handle missing data, etc \ldots)?
+
+
+### 3. Comparison of variable selectors in regression
+
+   - @hastie2020best have some surprising results in their simulation study, but one important method (adaptive lasso) is omitted. Try to recreate the study with adaptive lasso included (and perhaps elastic net, too?). 
+   - The project should address the following question: When it comes to variable selection, which method to choose and under which settings and for which aim/criterion (explainability, predictability, or sparsity)?
+
+### 4. The EM algorithm for different patterns of missingness
+
+- Comparison of the performances of the EM algorithm for different percentage of missing values and for different missing-data mechanisms
+- *Optional (if you have time and energy):* In a setting with missing data, what about comparing parameter estimates obtained via EM with those obtained (with ML) after imputation? You can choose one (or more) of the imputation methods described [here](https://rmisstastic.netlify.app/how-to/impute/missImp.pdf).
+- The project should address the following question: When you are faced with missing data, when is the EM algorithm a good option for statistical inference (the estimation process)?
+
+### 5. Diving into one of the course topics, e.g., MM algorithms or Monte Carlo integration (Week 8)
+
+Consult with the teacher to define the project and ensure its feasibility.
+
+### 6. Dana analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
+
+Consult with the teacher to define the project and ensure its feasibility.
+  
