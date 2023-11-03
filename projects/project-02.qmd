@@ -43,6 +43,7 @@ Unless otherwise stated, you are not required to code everything from scratch (u
 ### 2. Comparison of local regression implementations in different R packages
 
    - @deng2011density examine several packages for KDE in \texttt{R}. Not only there are huge differences in terms of speed, but some of the packages are even inconsistent! Makes one wonder what is the situation with local regression.
+   - Compare at least three functions/packages that perform local regression.
    - The project should address the following question: When it comes to local regression, which packages/functions to avoid and which one(s) to use and under which setting (e.g., accuracy, speed, ability to handle large datasets, ability to handle missing data, etc \ldots)?
 
 
