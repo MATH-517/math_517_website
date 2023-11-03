@@ -61,7 +61,7 @@ Unless otherwise stated, you are not required to code everything from scratch (u
 
 Consult with the teacher to define the project and ensure its feasibility.
 
-### 6. Dana analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
+### 6. Data analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
 
 Consult with the teacher to define the project and ensure its feasibility.
   
