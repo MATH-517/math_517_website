@@ -15,6 +15,20 @@ Use the corresponding invite link in [this google doc](https://docs.google.com/d
 :::
 
 
+::: {.callout-warning collapse="false"}
+# Submission requirements
+
+You are required to hand in a PDF version of your report `report.pdf` (generated from the quarto file `report.qmd`) and the quarto file itself. The `report.qmd` should contain all the code necessary to reproduce your results: you should not show the actual code in the PDF report, unless you want to point out something specific.
+
+Your `README.md` should contain instructions on reproducing the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.
+
+**Checklist**:
+
+1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
+2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
+3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
+:::
+
 
 The goal of this project is quite broad, students are free to come up with their own ideas. While simulation studies are the designated topic, groups that found interesting data during the small project and would like to carry on analyzing it, or groups interested in studying a bit deeper one of the methodological concepts from this course are encouraged to approach the teachers during the exercises and discuss their ideas. **Prospective topics for the final project will be gradually revealed during the lectures.**
 
