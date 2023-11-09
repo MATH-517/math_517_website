@@ -207,17 +207,6 @@ by $S_K = \{(b-a)/K\} \sum_{k=1}^K f(t_k)$. As $K\to \infty$, $S_K \to I$ (for a
 * local linear interpolation leads to the *trapezoidal rule*,
 * local quadratic interpolation leads to the *Simpson's rule*.
 
-```{r}
-#| echo: false
-#| fig-align: center
-#| layout-ncol: 3
-#| out-width: 30%
-#| fig-cap: "Riemann sum, trapezoidal rule, and Simpson's rule. Simpson's rule is missing the grid, sorry about that -- imagine that there is the same grid as on the first two plots, and the function is approximated quadratically between every two neighboring grid points. Source: wiki."
-knitr::include_graphics('../images/numerical_integration/local_constant_rule.png')
-knitr::include_graphics('../images/numerical_integration/local_linear_rule.png')
-knitr::include_graphics('../images/numerical_integration/local_quadratic_rule.png')
-```
-
 ## Naive Monte Carlo
 
 The naive Monte Carlo basically replaces the deterministic grid with a random one: $N$ samples $X_1,\ldots,X_N$ are drawn from $\mathcal{U}[a,b]$ distribution and
