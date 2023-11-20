@@ -152,7 +152,7 @@ $$
 
 In the code below, I use `M` in place of $c$, since `c` is sacred in `R`. The rate of the doubly exponential proposal is set at 1 as it minimizes the value of $c=\sup f(x)/g(x)$ and hence maximizes the acceptance probability.
 
-```{r, fig.width=4,fig.height=4, fig.show="hold"}
+```{r, fig.width=4,fig.height=4, fig.show="hold", echo=FALSE}
 M <- optimize(f=function(x){dnorm(x)/dexp(abs(x))*2}, interval=c(0,5),maximum=T)$objective
 
 # returns a single accepted sample from standard doubly exp. proposal and N(0,1) target
