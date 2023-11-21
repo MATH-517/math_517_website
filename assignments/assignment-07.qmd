@@ -26,24 +26,36 @@ You are required to hand in a PDF version of your report `report.pdf` (generated
 
 Your `README.md` should contain instructions on how to reproduce the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.
 
+**Code**:
+
+You are not required to code the bootstrap procedure by yourself and can use any library you want. However, you should be able to explain the code you use.
+
 **Checklist**:
 
 1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
 2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
 3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
+
 :::
 
 
-For $X_1,\ldots,X_{100} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$, consider the following confidence intervals for $\mathbb{E}[X_1] = 1/2$:
+For $X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$, consider the following $(1-\alpha)$ two-sided confidence intervals for $\mathbb{E}[X_1] = 1/2$:
 
-* asymptotic: $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} z(\alpha) \right)$$
-* studentized (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}^\star}$$
-* non-studentized (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{1}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\big(\bar{X}_N^\star - \bar{X}_N\big)$$
-* sample-truth-scaled (bootstrap): $$\left(-\infty, \bar{X}_N + \frac{\widehat{\sigma}}{\sqrt{N}} q^\star(\alpha) \right) \quad  \text{with} \quad T^\star = \sqrt{N}\frac{\bar{X}_N^\star - \bar{X}_N}{\widehat{\sigma}}$$
+* asymptotic
+* basic (non-parametric bootstrap)
+* studentized (non-parametric bootstrap)
+* percentile (non-parametric bootstrap)
 
-Verify coverage of these intervals via a simulation study of $10^3$ runs and report the coverage proportions as a table. Specifically, for every run, do the following:
 
-* generate new data $X_1,\ldots,X_{100} \stackrel{\text{ind.}}{\sim} Exp(2)$
+Verify the coverage of these intervals via a simulation study of $10^3$ runs for each of the following settings:
+
+- $N=10,50,100$
+- $\alpha=0.05$
+- $B=10^4$
+
+Specifically, for every run, do the following:
+
+* generate new data $X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$
 * calculate the four confidence intervals
 * check whether $\mathbb{E}[X_1] = 1/2$ lies inside the respective intervals (yes = coverage)
-* report the coverage proportion for the respective intervals as a single table
+* report the coverage proportion for the respective intervals
