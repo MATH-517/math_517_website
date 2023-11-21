@@ -24,7 +24,7 @@ Your `README.md` should contain instructions on reproducing the PDF report from 
 
 **Checklist**:
 
-1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
+1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`) (**max 20 pages**)
 2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
 3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
 :::
