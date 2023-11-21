@@ -59,3 +59,16 @@ Specifically, for every run, do the following:
 * calculate the four confidence intervals
 * check whether $\mathbb{E}[X_1] = 1/2$ lies inside the respective intervals (yes = coverage)
 * report the coverage proportion for the respective intervals
+
+
+::: callout-note
+You can check the following libraries:
+
+- `R`: [`nptest`](https://cran.r-project.org/web/packages/nptest/index.html)
+- `Python`: [`arch`](https://arch.readthedocs.io/en/latest/bootstrap/generated/generated/arch.bootstrap.CircularBlockBootstrap.conf_int.html#arch.bootstrap.CircularBlockBootstrap.conf_int)
+- `Julia`: [`Bootstrap.jl`](https://github.com/juliangehring/Bootstrap.jl)
+
+
+**Be careful of the parametrization of an exponential distribution in the different languages!**
+
+:::
