@@ -15,6 +15,20 @@ Use the corresponding invite link in [this google doc](https://docs.google.com/d
 :::
 
 
+::: {.callout-warning collapse="false"}
+# Submission requirements
+
+You are required to hand in a PDF version of your report `report.pdf` (generated from the quarto file `report.qmd`) and the quarto file itself. The `report.qmd` should contain all the code necessary to reproduce your results: you should not show the actual code in the PDF report, unless you want to point out something specific.
+
+Your `README.md` should contain instructions on reproducing the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.
+
+**Checklist**:
+
+1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
+2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
+3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
+:::
+
 
 The goal of this project is quite broad, students are free to come up with their own ideas. While simulation studies are the designated topic, groups that found interesting data during the small project and would like to carry on analyzing it, or groups interested in studying a bit deeper one of the methodological concepts from this course are encouraged to approach the teachers during the exercises and discuss their ideas. **Prospective topics for the final project will be gradually revealed during the lectures.**
 
@@ -43,6 +57,7 @@ Unless otherwise stated, you are not required to code everything from scratch (u
 ### 2. Comparison of local regression implementations in different R packages
 
    - @deng2011density examine several packages for KDE in \texttt{R}. Not only there are huge differences in terms of speed, but some of the packages are even inconsistent! Makes one wonder what is the situation with local regression.
+   - Compare at least three functions/packages that perform local regression.
    - The project should address the following question: When it comes to local regression, which packages/functions to avoid and which one(s) to use and under which setting (e.g., accuracy, speed, ability to handle large datasets, ability to handle missing data, etc \ldots)?
 
 
@@ -61,7 +76,7 @@ Unless otherwise stated, you are not required to code everything from scratch (u
 
 Consult with the teacher to define the project and ensure its feasibility.
 
-### 6. Dana analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
+### 6. Data analysis follow-up, .e.g., if missing data in your small project $\Rightarrow$ use EM
 
 Consult with the teacher to define the project and ensure its feasibility.
   
