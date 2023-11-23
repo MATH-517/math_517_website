@@ -28,7 +28,7 @@ Your `README.md` should contain instructions on how to reproduce the PDF report 
 
 **Code**:
 
-You are not required to code the bootstrap procedure by yourself and can use any library you want. However, you should be able to explain the code you use.
+You are not required to code the bootstrap procedure by yourself.
 
 **Checklist**:
 
@@ -62,13 +62,17 @@ Specifically, for every run, do the following:
 
 
 ::: callout-note
+# Code indications
+
 You can check the following libraries:
 
 - `R`: [`nptest`](https://cran.r-project.org/web/packages/nptest/index.html)
-- `Python`: [`arch`](https://arch.readthedocs.io/en/latest/bootstrap/generated/generated/arch.bootstrap.CircularBlockBootstrap.conf_int.html#arch.bootstrap.CircularBlockBootstrap.conf_int)
+- `Python`: [`arch`](https://arch.readthedocs.io/en/latest/bootstrap/confidence-intervals.html)
 - `Julia`: [`Bootstrap.jl`](https://github.com/juliangehring/Bootstrap.jl)
 
+You are not required to use these libraries, you can either code the bootstrap procedure by yourself or use any other library you want. 
 
-**Be careful of the parametrization of an exponential distribution in the different languages!**
+
+**Be careful of the parametrization of an exponential distribution** (i.e., [scale vs rate](https://en.wikipedia.org/wiki/Exponential_distribution#Alternative_parametrization)) **in the different programming languages!**
 
 :::
