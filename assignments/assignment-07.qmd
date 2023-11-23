@@ -1,10 +1,11 @@
 ---
 title: "Assignment 7"
-subtitle: "TBD"
+subtitle: "Confidence intervals for the mean of an exponential distribution"
 date: 11-24-2023
 format: html
 editor: visual
 ---
+
 
 ::: callout-important
 # Deadline
@@ -25,12 +26,53 @@ You are required to hand in a PDF version of your report `report.pdf` (generated
 
 Your `README.md` should contain instructions on how to reproduce the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.
 
+**Code**:
+
+You are not required to code the bootstrap procedure by yourself.
+
 **Checklist**:
 
 1. [ ] `report.pdf` in GitHub repository (generated from `report.qmd`)
 2. [ ] `report.qmd` in GitHub repository (source code, should be able to run from top to bottom)
 3. [ ] `README.md` with instructions on how to run the code and reproduce the PDF report
+
 :::
 
 
-To be posted soon.
+For $X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$, consider the following $(1-\alpha)$ two-sided confidence intervals for $\mathbb{E}[X_1] = 1/2$:
+
+* asymptotic
+* basic (non-parametric bootstrap)
+* studentized (non-parametric bootstrap)
+* percentile (non-parametric bootstrap)
+
+
+Verify the coverage of these intervals via a simulation study of $10^3$ runs for each of the following settings:
+
+- $N=10,50,100$
+- $\alpha=0.05$
+- $B=10^4$
+
+Specifically, for every run, do the following:
+
+* generate new data $X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)$
+* calculate the four confidence intervals
+* check whether $\mathbb{E}[X_1] = 1/2$ lies inside the respective intervals (yes = coverage)
+* report the coverage proportion for the respective intervals
+
+
+::: callout-note
+# Code indications
+
+You can check the following libraries:
+
+- `R`: [`nptest`](https://cran.r-project.org/web/packages/nptest/index.html)
+- `Python`: [`arch`](https://arch.readthedocs.io/en/latest/bootstrap/confidence-intervals.html)
+- `Julia`: [`Bootstrap.jl`](https://github.com/juliangehring/Bootstrap.jl)
+
+You are not required to use these libraries, you can either code the bootstrap procedure by yourself or use any other library you want. 
+
+
+**Be careful of the parametrization of an exponential distribution** (i.e., [scale vs rate](https://en.wikipedia.org/wiki/Exponential_distribution#Alternative_parametrization)) **in the different programming languages!**
+
+:::
