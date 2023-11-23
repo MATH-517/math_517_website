@@ -67,9 +67,11 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="MATH 517 - Assignment 7">
-<meta property="og:description" content="TBD">
+<meta property="og:description" content="Confidence intervals for the mean of an exponential distribution">
 <meta property="og:site_name" content="MATH 517">
 </head>
 
@@ -404,7 +406,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assignments/assignment-01.html">Assignments</a></li><li class="breadcrumb-item"><a href="../assignments/assignment-07.html">Assignment 7</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Assignment 7</h1>
-<p class="subtitle lead">TBD</p>
+<p class="subtitle lead">Confidence intervals for the mean of an exponential distribution</p>
 </div>
 
 
@@ -469,6 +471,8 @@ Submission requirements
 <div class="callout-body-container callout-body">
 <p>You are required to hand in a PDF version of your report <code>report.pdf</code> (generated from the quarto file <code>report.qmd</code>) and the quarto file itself. The <code>report.qmd</code> should contain all the code necessary to reproduce your results: you should not show the actual code in the PDF report, unless you want to point out something specific.</p>
 <p>Your <code>README.md</code> should contain instructions on how to reproduce the PDF report from the quarto file. This can be useful if you have issues with the automatic generation of the PDF report right before the deadline.</p>
+<p><strong>Code</strong>:</p>
+<p>You are not required to code the bootstrap procedure by yourself.</p>
 <p><strong>Checklist</strong>:</p>
 <ol type="1">
 <li><input type="checkbox"><code>report.pdf</code> in GitHub repository (generated from <code>report.qmd</code>)</li>
@@ -478,7 +482,46 @@ Submission requirements
 </div>
 </div>
 </div>
-<p>To be posted soon.</p>
+<p>For <span class="math inline">\(X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)\)</span>, consider the following <span class="math inline">\((1-\alpha)\)</span> two-sided confidence intervals for <span class="math inline">\(\mathbb{E}[X_1] = 1/2\)</span>:</p>
+<ul>
+<li>asymptotic</li>
+<li>basic (non-parametric bootstrap)</li>
+<li>studentized (non-parametric bootstrap)</li>
+<li>percentile (non-parametric bootstrap)</li>
+</ul>
+<p>Verify the coverage of these intervals via a simulation study of <span class="math inline">\(10^3\)</span> runs for each of the following settings:</p>
+<ul>
+<li><span class="math inline">\(N=10,50,100\)</span></li>
+<li><span class="math inline">\(\alpha=0.05\)</span></li>
+<li><span class="math inline">\(B=10^4\)</span></li>
+</ul>
+<p>Specifically, for every run, do the following:</p>
+<ul>
+<li>generate new data <span class="math inline">\(X_1,\ldots,X_{N} \stackrel{\text{ind.}}{\sim} \operatorname{Exp}(2)\)</span></li>
+<li>calculate the four confidence intervals</li>
+<li>check whether <span class="math inline">\(\mathbb{E}[X_1] = 1/2\)</span> lies inside the respective intervals (yes = coverage)</li>
+<li>report the coverage proportion for the respective intervals</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code indications
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can check the following libraries:</p>
+<ul>
+<li><code>R</code>: <a href="https://cran.r-project.org/web/packages/nptest/index.html"><code>nptest</code></a></li>
+<li><code>Python</code>: <a href="https://arch.readthedocs.io/en/latest/bootstrap/confidence-intervals.html"><code>arch</code></a></li>
+<li><code>Julia</code>: <a href="https://github.com/juliangehring/Bootstrap.jl"><code>Bootstrap.jl</code></a></li>
+</ul>
+<p>You are not required to use these libraries, you can either code the bootstrap procedure by yourself or use any other library you want.</p>
+<p><strong>Be careful of the parametrization of an exponential distribution</strong> (i.e., <a href="https://en.wikipedia.org/wiki/Exponential_distribution#Alternative_parametrization">scale vs rate</a>) <strong>in the different programming languages!</strong></p>
+</div>
+</div>
 
 
 
