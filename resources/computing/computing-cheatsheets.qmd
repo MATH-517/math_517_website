@@ -1,7 +1,13 @@
 ---
-title: "R cheatsheets"
-description: "A collection of cheatsheets for`R`"
+title: "Cheatsheets"
+description: "A collection of cheatsheets for`R` and `Python`"
 ---
+
+### Python
+
+You can find cheatsheets for Python [here](https://www.utc.fr/~jlaforet/Suppl/python-cheatsheets.pdf) and [here](https://ehmatthes.github.io/pcc/cheatsheets/README.html).
+
+### R
 
 The following cheatsheets come from <https://posit.co/resources/cheatsheets>. We haven't covered every function and functionality listed on them, but you might still find them useful as references.
 
