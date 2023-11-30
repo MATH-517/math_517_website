@@ -1,6 +1,6 @@
 ---
 title: "Assignment 8"
-subtitle: "TBD"
+subtitle: "Markov Chain Monte Carlo"
 date: 12-01-2023
 format: html
 editor: visual
@@ -34,25 +34,18 @@ Your `README.md` should contain instructions on how to reproduce the PDF report 
 
 ## Problem setting
 
-Since black carbon (BC) is a pollutant known for its adverse health effects,
-it is of interest to monitor BC mass concentration in urban areas.
-While stationary measurement devices are able to precisely 
-record BC concentrations (random variable $X$), 
-simpler mobile devices provide more flexibility -- at the cost of
-some measurement noise $\varepsilon$.
-For a mobile measurement, only $Y = X + \varepsilon$ is observed, where we may assume $\varepsilon \sim N(0, \sigma^2)$ with known standard deviation $\sigma = 0.6\, \mu g m^{-3}$ based on lab experiments.
+Since black carbon (BC) is a pollutant known for its adverse health effects, it is of interest to monitor BC mass concentration in urban areas. While stationary measurement devices are able to precisely record BC concentrations (random variable $\mu$), simpler mobile devices provide more flexibility -- at the cost of some measurement noise $\varepsilon$. For a mobile measurement, only $Y = \mu + \varepsilon$ is observed, where we may assume $\varepsilon \sim N(0, \sigma^2)$ with known standard deviation $\sigma = 0.6\, \mu g m^{-3}$ based on lab experiments.
 
-To obtain a detailed overview over the BC concentrations in Lausanne,
-the aim is to add mobile measurements to those of available stationary devices. We want to predict $X$ given a noisy observation $Y=y$ using a
-Bayesian approach, with stationary measurements motivating a priori a Weibull distribution for $X$ with shape parameter $2$ and scale parameter $1.2$ (median $\approx 1 \, \mu g m^3$).
+To obtain a detailed overview over the BC concentrations in Lausanne, the aim is to add mobile measurements to those of available stationary devices. We want to predict $\mu$ given a noisy observation $Y=y$ using a Bayesian approach, with stationary measurements motivating a prior Weibull distribution for $\mu$ with shape parameter $2$ and scale parameter $1.2$ (median $\approx 1 \, \mu g m^3$).
 
 ## Task
 
-- Implement a Metropolis-Hastings-Algorithm for obtaining MCMC samples of $X \mid Y=y$ using $\mathcal{N}(x_{max}, 0.6^2)$ as fixed proposal distribution for all iterations, where $$x_{max} = \underset{x \in [0,\infty)}{\arg\max} f(x \mid Y=y)$$ is the posterior mode.
+-   Implement a Metropolis-Hastings-Algorithm for obtaining MCMC samples of $\mu \mid Y=y$ using $N(\tilde{y}, 0.6)$ as *fixed independent proposal distribution for all iterations* (note that this is an asymmetric proposal from the MH perspective!). Here, $\tilde{y}$ is the MAP.
 
-- Run your algorithm for $y \in \{0.5, 1, 2\}$. In each run, draw $10^4$ samples[^1] after a burn-in of $10^3$.
+-   Run your algorithm for $y = 0.5$, $y = 1$ and $y = 2$ for illustration. In each run, draw $10000$ samples after a burn-in of $1000$ (less if it takes too long).
 
-- In this specific scenario, the posterior is analytically available (see the code snipets below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of $y$.
+-   In this specific scenario, the posterior is in fact analytically available (see the code provided below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of $y$.
+
 
 :::{.callout-tip}
  It might be wise to compute $\log(\alpha)$ first as a function of the $\log$-densities to avoid numerical issues.
