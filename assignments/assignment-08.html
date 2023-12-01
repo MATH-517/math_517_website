@@ -529,8 +529,8 @@ Submission requirements
 <section id="task" class="level2">
 <h2 class="anchored" data-anchor-id="task">Task</h2>
 <ul>
-<li><p>Implement a Metropolis–Hastings algorithm for obtaining MCMC samples of <span class="math inline">\(\mu \mid Y=y\)</span> using <span class="math inline">\(N(\tilde{y}, 0.6)\)</span> as <em>fixed independent proposal distribution for all iterations</em> (note that this is an asymmetric proposal from the MH perspective!). Here, <span class="math inline">\(\tilde{y}\)</span> is the MAP.</p></li>
-<li><p>Run your algorithm for <span class="math inline">\(y = 0.5\)</span>, <span class="math inline">\(y = 1\)</span> and <span class="math inline">\(y = 2\)</span> for illustration. In each run, draw <span class="math inline">\(10000\)</span> samples after a burn-in of <span class="math inline">\(1000\)</span> (less if it takes too long).</p></li>
+<li><p>Implement a Metropolis–Hastings algorithm for obtaining MCMC samples of <span class="math inline">\(\mu \mid Y=y\)</span> using <span class="math inline">\(N(\tilde{y}, 0.6)\)</span> as <em>fixed independent proposal distribution for all iterations</em> (note that this is not a symmetric proposal from the MH perspective!). Here, <span class="math inline">\(\tilde{y}\)</span> is the MAP.</p></li>
+<li><p>Run your algorithm for <span class="math inline">\(y = 0.5\)</span>, <span class="math inline">\(y = 1\)</span>, and <span class="math inline">\(y = 2\)</span> for illustration. In each run, draw <span class="math inline">\(10000\)</span> samples after a burn-in of <span class="math inline">\(1000\)</span> (less if it takes too long).</p></li>
 <li><p>In this specific scenario, the posterior is in fact analytically available (see the code provided below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of <span class="math inline">\(y\)</span>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
