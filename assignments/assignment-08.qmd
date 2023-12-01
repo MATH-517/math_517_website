@@ -40,7 +40,7 @@ To obtain a detailed overview over the BC concentrations in Lausanne, the aim is
 
 ## Task
 
--   Implement a Metropolis--Hastings algorithm for obtaining MCMC samples of $\mu \mid Y=y$ using $N(\tilde{y}, 0.6)$ as the proposal distribution where $\tilde{y}$ is the last sample of the chain.
+-   Implement a Metropolis--Hastings algorithm for obtaining MCMC samples of $\mu \mid Y=y$ using $N(\tilde{y}, 0.6)$ as the proposal distribution where $\tilde{y}$ is the current state of the chain.
 
 -   Run your algorithm for $y = 0.5$, $y = 1$, and $y = 2$ for illustration. In each run, draw $10000$ samples after a burn-in of $1000$ (less if it takes too long).
 
