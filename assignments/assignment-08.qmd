@@ -40,9 +40,9 @@ To obtain a detailed overview over the BC concentrations in Lausanne, the aim is
 
 ## Task
 
--   Implement a Metropolis--Hastings algorithm for obtaining MCMC samples of $\mu \mid Y=y$ using $N(\tilde{y}, 0.6)$ as *fixed independent proposal distribution for all iterations* (note that this is an asymmetric proposal from the MH perspective!). Here, $\tilde{y}$ is the MAP.
+-   Implement a Metropolis--Hastings algorithm for obtaining MCMC samples of $\mu \mid Y=y$ using $N(\tilde{y}, 0.6)$ as *fixed independent proposal distribution for all iterations* (note that this is not a symmetric proposal from the MH perspective!). Here, $\tilde{y}$ is the MAP.
 
--   Run your algorithm for $y = 0.5$, $y = 1$ and $y = 2$ for illustration. In each run, draw $10000$ samples after a burn-in of $1000$ (less if it takes too long).
+-   Run your algorithm for $y = 0.5$, $y = 1$, and $y = 2$ for illustration. In each run, draw $10000$ samples after a burn-in of $1000$ (less if it takes too long).
 
 -   In this specific scenario, the posterior is in fact analytically available (see the code provided below). Graphically compare the empirical distributions of your MCMC samples with the true posterior densities and the proposal densities for the three considered values of $y$.
 
